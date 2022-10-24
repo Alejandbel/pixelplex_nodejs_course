@@ -1,1 +1,1 @@
-console.log("Flashcards")
+console.log('Flashcards');
