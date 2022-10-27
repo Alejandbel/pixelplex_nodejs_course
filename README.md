@@ -38,3 +38,73 @@ __Created by Aliaksandr Bahdanau__
     token: string;
   }
   ```
+
+
+## Languages
+- `POST api/v1/langs` - endpoint for creating language:
+
+  ```TypeScript
+  {
+    title: string;
+    code: string;
+  }
+  ```
+
+  Returns:
+
+  ```TypeScript
+  {
+    status: "OK";
+    title: string;
+    code: string;
+  }
+  ```
+- `PATCH api/v1/langs/:id` - endpoint for editing language:
+
+  ```TypeScript
+  {
+    title?: string;
+    code?: string;
+  }
+  ```
+
+  Returns:
+
+  ```TypeScript
+  {
+    status: "OK";
+    title: string;
+    code: string;
+  }
+  ```
+
+- `DELETE api/v1/langs/:id` - endpoint for deleting language.
+
+  Returns:
+
+  ```TypeScript
+  {
+    status: "OK";
+  }
+  ```
+
+- `GET api/v1/langs?limit=Number&offset=Number` - endpoint for receiving languages with pagination.
+  
+  Supports:
+    - orderBy{Name, Date}={asc,desc}
+    - filter=[string] 
+
+  Returns:
+
+  ```TypeScript
+  {
+    items: Array<Language>;
+    pagination: {
+      offset: Number;
+      limit: Number;
+      total: Number;
+    };
+  }
+  ```
+
+
