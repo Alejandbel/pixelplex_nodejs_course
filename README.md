@@ -7,9 +7,9 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    username: string;
-    email: string;
-    password: string;
+    username: String;
+    email: String;
+    password: String;
   }
   ```
 
@@ -18,15 +18,15 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   {
     status: "OK";
-    token: string;
+    token: String;
   }
   ```
 - `POST api/v1/auth/login` - endpoint for logging in:
 
   ```TypeScript
   {
-    email: string;
-    password: string;
+    email: String;
+    password: String;
   }
   ```
 
@@ -35,7 +35,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   {
     status: "OK";
-    token: string;
+    token: String;
   }
   ```
 
@@ -45,8 +45,8 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    title: string;
-    code: string;
+    title: String;
+    code: String;
   }
   ```
 
@@ -55,16 +55,17 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   {
     status: "OK";
-    title: string;
-    code: string;
+    id: Number;
+    title: String;
+    code: String;
   }
   ```
 - `PATCH api/v1/langs/:id` - endpoint for editing language:
 
   ```TypeScript
   {
-    title?: string;
-    code?: string;
+    title: String; // one ore more fields
+    code: String;
   }
   ```
 
@@ -73,8 +74,9 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   {
     status: "OK";
-    title: string;
-    code: string;
+    id: Number;
+    title: String;
+    code: String;
   }
   ```
 
@@ -92,7 +94,7 @@ __Created by Aliaksandr Bahdanau__
   
   Supports:
     - orderBy{Name, Date}={asc,desc}
-    - filter=[string] 
+    - filter=String 
 
   Returns:
 
@@ -106,5 +108,3 @@ __Created by Aliaksandr Bahdanau__
     };
   }
   ```
-
-
