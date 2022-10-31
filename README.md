@@ -97,12 +97,20 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-  If password not match email, or user does not exist:
+  If user with this email does not exist:
+  
+    ```TypeScript
+    code: 404
+    {
+      message: "Can't find user with this email";
+    }
+    ```
+  If password not match email:
 
   ```TypeScript
   code: 400
   {
-    message: "Cant log in, check email or password";
+    message: "Cant log in, check password";
   }
   ```
   
