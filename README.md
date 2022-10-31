@@ -54,7 +54,7 @@ __Created by Aliaksandr Bahdanau__
   If Email is not unique: 
    
   ```TypeScript
-  code: 400
+  code: 409
   {
     message: "Email must be unique";
   }
@@ -126,11 +126,14 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-  Returns:
+  Returns __Language__;
+  
+  If language with this code already exist:
 
   ```TypeScript
+  code: 409
   {
-    language: Language;
+    message: "Language with this code already exists"
   }
   ```
 - `PATCH api/v1/languages/:id` - endpoint for editing language:
@@ -141,17 +144,46 @@ __Created by Aliaksandr Bahdanau__
     code?: string;
   }
   ```
+  
+  Returns __Language__;
 
-  Returns __Language__
+  If language with this id does not exist:
+
+  ```TypeScript
+  code: 404
+  {
+    message: "Language with this id does not exist"
+  }
+  ```
 
 - `DELETE api/v1/languages/:id` - endpoint for deleting language.
 
+  If language with this id does not exist:
+
+  ```TypeScript
+  code: 404
+  {
+    message: "Language with this id does not exist"
+  }
+  ```
+- `GET api/v1/languages/:id` - endpoint for receiving language:
+
+  Returns __Language__;
+
+  If language with this id does not exist:
+
+  ```TypeScript
+  code: 404
+  {
+    message: "Language with this id does not exist"
+  }
+  ```
 
 - `GET api/v1/languages?limit=number&offset=number` - endpoint for receiving languages with pagination.
   
   Supports:
     - orderBy{Name, Date}={asc,desc}
-    - filter=string 
+    - search=string 
 
   Returns:
 
@@ -184,11 +216,11 @@ __Created by Aliaksandr Bahdanau__
    If word in card exists
 
   ```TypeScript
-    code: 200
-    {
-      message: "Word already exists";
-    }
-   ```
+  code: 200
+  {
+    message: "Word already exists";
+  }
+  ```
 - `PATCH api/v1/cards/:id` - endpoint for editing card:
 
   ```TypeScript
