@@ -24,7 +24,7 @@ __Created by Aliaksandr Bahdanau__
       foreignWord: string; 
     }
   ```
-- Exercise
+- task
   ```typescript
     {
       id: number;
@@ -295,20 +295,20 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-## Exercise
+## Task
 
-- `POST api/v1/exercises` - endpoint for creating exercise:
+- `POST api/v1/tasks` - endpoint for creating task:
 
   ```TypeScript
   {
     languageId: number;
-    exerciseType: "to_foreign"|"to_native";
+    taskType: "to_foreign"|"to_native";
   }
   ```
 
-  Returns __Exercise__:
+  Returns __Task__:
   
-- `POST api/v1/exercises/:id` - endpoint for completing exercise:
+- `POST api/v1/tasks/:id` - endpoint for completing task:
 
   ```TypeScript
   {
@@ -322,18 +322,58 @@ __Created by Aliaksandr Bahdanau__
     result: "CORRECT"|"INCORRECT";
   }
   ```
+  
+  If task was made by another user:
 
-- `GET api/v1/exercises?limit=number&offset=number` - endpoint for receiving uncompleted exercises with pagination.
+  ```TypeScript
+  code: 403
+  {
+    message: "Task was made by another user";
+  }
+  ```
+
+  If task does not exist:
+
+  ```TypeScript
+  code: 404
+  {
+    message: "Task does not exist";
+  }
+  ```
+
+- `GET api/v1/tasks/:id` - endpoint for receiving task:
+
+  Returns __Task__;
+
+  If task was made by another user:
+
+  ```TypeScript
+  code: 403
+  {
+    message: "Task was made by another user";
+  }
+  ```
+
+  If task does not exist:
+
+  ```TypeScript
+  code: 404
+  {
+    message: "Task does not exist";
+  }
+  ```
+
+- `GET api/v1/tasks?limit=number&offset=number` - endpoint for receiving uncompleted tasks with pagination.
 
   Supports:
   - orderByDate={asc,desc}
-  - filterWord=string
+  - searchWord=string
 
   Returns:
 
   ```TypeScript
   {
-    items: Array<Exercises>;
+    items: Array<tasks>;
     pagination: {
       offset: number;
       limit: number;
@@ -342,7 +382,7 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-- `GET api/v1/exercises/statistic` - endpoint for receiving exercises statistic.
+- `GET api/v1/tasks/statistic` - endpoint for receiving tasks statistic.
 
   Args:
   - dateBegin=Date
