@@ -113,8 +113,8 @@ __Created by Aliaksandr Bahdanau__
     message: "Cant log in, check password";
   }
   ```
-  
 
+  - `POST api/v1/auth/logout` - endpoint for logging out:
 
 ## Languages
 - `POST api/v1/languages` - endpoint for creating language:
