@@ -47,16 +47,15 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    status: "OK";
     token: string;
   }
   ```
   
   If Email is not unique: 
-
+   
   ```TypeScript
+  code: 400
   {
-    status: "ERROR";
     message: "Email must be unique";
   }
   ```
@@ -67,17 +66,17 @@ __Created by Aliaksandr Bahdanau__
   (!@#$%^&*()_+=):
 
   ```TypeScript
+  code: 400
   {
-    status: "ERROR";
     message: "Password is not must consist of at least 8 Latin characters of lower and upper  case, at least one digit and at least one special character (!@#$%^&*()_+=)";
   }
   ```
 
   If length of username less than 5 or higher than 256:
-
+  
   ```TypeScript
+  code: 400
   {
-    status: "ERROR";
     message: "Username length should be less than 5 or higher than 256";
   }
   ```
@@ -94,7 +93,6 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    status: "OK";
     token: string;
   }
   ```
@@ -102,8 +100,8 @@ __Created by Aliaksandr Bahdanau__
   If password not match email, or user does not exist:
 
   ```TypeScript
+  code: 400
   {
-    status: "ERROR";
     message: "Cant log in, check email or password";
   }
   ```
@@ -124,7 +122,6 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    status: "OK";
     language: Language;
   }
   ```
@@ -132,29 +129,15 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    title: string; // one ore more fields
-    code: string;
+    title?: string;
+    code?: string;
   }
   ```
 
-  Returns:
-
-  ```TypeScript
-  {
-    status: "OK";
-    language: Language;
-  }
-  ```
+  Returns __Language__
 
 - `DELETE api/v1/langs/:id` - endpoint for deleting language.
 
-  Returns:
-
-  ```TypeScript
-  {
-    status: "OK";
-  }
-  ```
 
 - `GET api/v1/langs?limit=number&offset=number` - endpoint for receiving languages with pagination.
   
@@ -188,67 +171,48 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-  Returns:
-  ```TypeScript
-  {
-    status: "OK";
-    card: Card;
-  }
-   ```
+  Returns: __Card__
 
    If word in card exists
 
   ```TypeScript
+    code: 200
     {
-      status: "ERROR";
       message: "Word already exists";
     }
    ```
 - `PATCH api/v1/cards/:id` - endpoint for editing card:
 
   ```TypeScript
-  //one of the following fields
   {
-    nativeLandId: number;
-    foreignLangId: number;
-    nativeWord: string;
-    foreignWord: string; 
+    nativeLandId?: number;
+    foreignLangId?: number;
+    nativeWord?: string;
+    foreignWord?: string; 
   }
   ```
 
-  Returns:
-
-  ```TypeScript
-  {
-    status: "OK";
-    card: Card;
-  }
-  ```
+  Returns __Card__
 
   If word in card exists
 
   ```TypeScript
+    code: 200
     {
-      status: "ERROR";
       message: "Word already exists";
     }
    ```
 
 - `DELETE api/v1/cards/:id` - endpoint for deleting card.
 
-  Returns:
 
-  ```TypeScript
-  {
-    status: "OK";
-  }
-  ```
 
 - `GET api/v1/cards?limit=Number&offset=Number` - endpoint for receiving cards with pagination.
 
   Supports:
   - orderBy{Foreign, Native, Date}={asc,desc}
   - filter{Foreign, Native}=string
+  - languageId=number
 
   Returns:
 
@@ -274,14 +238,8 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-  Returns:
-  ```TypeScript
-  {
-    status: "OK";
-    exercise: Excercise;
-  }
-   ```
-
+  Returns __Exercise__:
+  
 - `POST api/v1/exercises/:id` - endpoint for completing exercise:
 
   ```TypeScript
@@ -293,7 +251,6 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    status: "OK";
     result: "CORRECT"|"INCORRECT";
   }
   ```
