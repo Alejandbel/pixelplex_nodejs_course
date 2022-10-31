@@ -18,8 +18,8 @@ __Created by Aliaksandr Bahdanau__
   ```typescript
     {
       id: number;
-      nativeLandId: number;
-      foreignLangId: number;
+      nativeLanguageId: number;
+      foreignLanguageId: number;
       nativeWord: string;
       foreignWord: string; 
     }
@@ -117,7 +117,7 @@ __Created by Aliaksandr Bahdanau__
 
 
 ## Languages
-- `POST api/v1/langs` - endpoint for creating language:
+- `POST api/v1/languages` - endpoint for creating language:
 
   ```TypeScript
   {
@@ -133,7 +133,7 @@ __Created by Aliaksandr Bahdanau__
     language: Language;
   }
   ```
-- `PATCH api/v1/langs/:id` - endpoint for editing language:
+- `PATCH api/v1/languages/:id` - endpoint for editing language:
 
   ```TypeScript
   {
@@ -144,10 +144,10 @@ __Created by Aliaksandr Bahdanau__
 
   Returns __Language__
 
-- `DELETE api/v1/langs/:id` - endpoint for deleting language.
+- `DELETE api/v1/languages/:id` - endpoint for deleting language.
 
 
-- `GET api/v1/langs?limit=number&offset=number` - endpoint for receiving languages with pagination.
+- `GET api/v1/languages?limit=number&offset=number` - endpoint for receiving languages with pagination.
   
   Supports:
     - orderBy{Name, Date}={asc,desc}
@@ -172,8 +172,8 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    nativeLandId: number;
-    foreignLangId: number;
+    nativeLanguageId: number;
+    foreignLanguageId: number;
     nativeWord: string;
     foreignWord: string; 
   }
@@ -193,8 +193,8 @@ __Created by Aliaksandr Bahdanau__
 
   ```TypeScript
   {
-    nativeLandId?: number;
-    foreignLangId?: number;
+    nativeLanguageId?: number;
+    foreignLanguagefId?: number;
     nativeWord?: string;
     foreignWord?: string; 
   }
