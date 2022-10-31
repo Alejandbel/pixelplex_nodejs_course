@@ -216,7 +216,7 @@ __Created by Aliaksandr Bahdanau__
    If word in card exists
 
   ```TypeScript
-  code: 200
+  code: 409
   {
     message: "Word already exists";
   }
@@ -237,21 +237,49 @@ __Created by Aliaksandr Bahdanau__
   If word in card exists
 
   ```TypeScript
-    code: 200
+    code: 409
     {
       message: "Word already exists";
     }
    ```
 
+  If card with this id does not exist
+
+  ```TypeScript
+    code: 404
+    {
+      message: "Card with this id does not exist";
+    }
+   ```
 - `DELETE api/v1/cards/:id` - endpoint for deleting card.
 
+  If card with this id does not exist
 
+  ```TypeScript
+    code: 404
+    {
+      message: "Card with this id does not exist";
+    }
+  ```
+
+- `GET api/v1/cards/:id` - endpoint for receiving card:
+
+  Returns __Card__
+
+  If card with this id does not exist
+
+  ```TypeScript
+    code: 404
+    {
+      message: "Card with this id does not exist";
+    }
+   ```
 
 - `GET api/v1/cards?limit=Number&offset=Number` - endpoint for receiving cards with pagination.
 
   Supports:
   - orderBy{Foreign, Native, Date}={asc,desc}
-  - filter{Foreign, Native}=string
+  - search{Foreign, Native}=string
   - languageId=number
 
   Returns:
