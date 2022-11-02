@@ -117,6 +117,15 @@ __Created by Aliaksandr Bahdanau__
   - `POST api/v1/auth/logout` - endpoint for logging out:
 
 ## Languages
+
+  For all the rest endpoint if user is not authorized:
+
+  ```TypeScript
+  code: 401
+  {
+    message: "You must be authorized to do this"
+  }
+  ```
 - `POST api/v1/languages` - endpoint for creating language:
 
   ```TypeScript
@@ -136,6 +145,16 @@ __Created by Aliaksandr Bahdanau__
     message: "Language with this code already exists"
   }
   ```
+
+  If user is not admin:
+
+  ```TypeScript
+  code: 403
+  {
+    message: "You are not allowed to do this"
+  }
+  ```
+  
 - `PATCH api/v1/languages/:id` - endpoint for editing language:
 
   ```TypeScript
@@ -155,6 +174,15 @@ __Created by Aliaksandr Bahdanau__
     message: "Language with this id does not exist"
   }
   ```
+  
+  If user is not admin:
+
+  ```TypeScript
+  code: 403
+  {
+    message: "You are not allowed to do this"
+  }
+  ```
 
 - `DELETE api/v1/languages/:id` - endpoint for deleting language.
 
@@ -166,6 +194,16 @@ __Created by Aliaksandr Bahdanau__
     message: "Language with this id does not exist"
   }
   ```
+
+  If user is not admin:
+
+  ```TypeScript
+  code: 403
+  {
+    message: "You are not allowed to do this"
+  }
+  ```
+  
 - `GET api/v1/languages/:id` - endpoint for receiving language:
 
   Returns __Language__;
@@ -178,6 +216,8 @@ __Created by Aliaksandr Bahdanau__
     message: "Language with this id does not exist"
   }
   ```
+  
+  
 
 - `GET api/v1/languages?limit=number&offset=number` - endpoint for receiving languages with pagination.
   
