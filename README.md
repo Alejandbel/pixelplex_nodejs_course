@@ -116,9 +116,9 @@ __Created by Aliaksandr Bahdanau__
 
   - `POST api/v1/auth/logout` - endpoint for logging out:
 
-## Languages
+## User
 
-  For all the rest endpoint if user is not authorized:
+For all the rest endpoint if user is not authorized:
 
   ```TypeScript
   code: 401
@@ -126,6 +126,26 @@ __Created by Aliaksandr Bahdanau__
     message: "You must be authorized to do this"
   }
   ```
+
+- `PATCH api/v1/user/native-language` - endpoint for editing native language:
+
+  ```TypeScript
+  {
+    languageId: number;
+  }
+  ```
+
+  If language with this id does not exist:
+
+  ```TypeScript
+  code: 400
+  {
+    message: "Language with this id does not exist"
+  }
+  ```
+
+## Languages
+
 - `POST api/v1/languages` - endpoint for creating language:
 
   ```TypeScript
