@@ -29,6 +29,8 @@ __Created by Aliaksandr Bahdanau__
     {
       id: number;
       word: string;
+      foreignLanguageId: number;
+      target: "to_foreign"|"to_native";
     }
   ```
   
@@ -372,7 +374,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   {
     languageId: number;
-    taskType: "to_foreign"|"to_native";
+    target: "to_foreign"|"to_native";
   }
   ```
   
