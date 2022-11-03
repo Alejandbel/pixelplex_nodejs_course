@@ -24,7 +24,7 @@ __Created by Aliaksandr Bahdanau__
       foreignWord: string; 
     }
   ```
-- task
+- Task
   ```typescript
     {
       id: number;
@@ -127,7 +127,7 @@ For all the rest endpoint if user is not authorized:
   }
   ```
 
-- `PATCH api/v1/user/native-language` - endpoint for editing native language:
+- `PATCH api/v1/users/native-language` - endpoint for editing native language:
 
   ```TypeScript
   {
