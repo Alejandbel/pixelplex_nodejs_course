@@ -311,6 +311,16 @@ __Created by Aliaksandr Bahdanau__
       message: "Card does not exist";
     }
    ```
+
+  If card was made by another user:
+
+  ```TypeScript
+  code: 403
+  {
+    message: "You are not allowed to do this"
+  }
+  ```
+
 - `DELETE api/v1/cards/:id` - endpoint for deleting card.
 
   If card with this id does not exist
@@ -365,9 +375,18 @@ __Created by Aliaksandr Bahdanau__
     taskType: "to_foreign"|"to_native";
   }
   ```
-
+  
   Returns __Task__:
   
+  If language with specified id does not exist:
+
+  ```TypeScript
+    code: 404
+    {
+      message: "Card does not exist";
+    }
+   ```
+
 - `POST api/v1/tasks/:id` - endpoint for completing task:
 
   ```TypeScript
