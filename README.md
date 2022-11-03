@@ -54,7 +54,7 @@ __Created by Aliaksandr Bahdanau__
   If Email is not unique: 
    
   ```TypeScript
-  code: 409
+  code: 400
   {
     message: "Email must be unique";
   }
@@ -138,7 +138,7 @@ For all the rest endpoint if user is not authorized:
   If language with this id does not exist:
 
   ```TypeScript
-  code: 400
+  code: 404
   {
     message: "Language with this id does not exist"
   }
@@ -160,7 +160,7 @@ For all the rest endpoint if user is not authorized:
   If language with this code already exist:
 
   ```TypeScript
-  code: 409
+  code: 400
   {
     message: "Language with this code already exists"
   }
@@ -276,7 +276,7 @@ For all the rest endpoint if user is not authorized:
    If word in card exists
 
   ```TypeScript
-  code: 409
+  code: 400
   {
     message: "Word already exists";
   }
@@ -297,7 +297,7 @@ For all the rest endpoint if user is not authorized:
   If word in card exists
 
   ```TypeScript
-    code: 409
+    code: 400
     {
       message: "Word already exists";
     }
