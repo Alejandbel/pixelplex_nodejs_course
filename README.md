@@ -13,7 +13,7 @@ __Created by Aliaksandr Bahdanau__
       code: string;
     }
   ```
-- Card
+- Cards
   
   ```typescript
     {
@@ -56,7 +56,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   code: 400
   {
-    message: "Email must be unique";
+    message: "Email already exists";
   }
   ```
 
@@ -68,7 +68,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   code: 400
   {
-    message: "Password is not must consist of at least 8 Latin characters of lower and upper  case, at least one digit and at least one special character (!@#$%^&*()_+=)";
+    message: "Invalid password format";
   }
   ```
 
@@ -77,7 +77,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   code: 400
   {
-    message: "Username length should be less than 5 or higher than 256";
+    message: "Invalid email length";
   }
   ```
 - `POST api/v1/auth/login` - endpoint for logging in:
@@ -102,7 +102,7 @@ __Created by Aliaksandr Bahdanau__
     ```TypeScript
     code: 404
     {
-      message: "Can't find user with this email";
+      message: "User with this email does not exists";
     }
     ```
   If password not match email:
@@ -110,7 +110,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
   code: 400
   {
-    message: "Cant log in, check password";
+    message: "Wrong password";
   }
   ```
 
@@ -118,7 +118,7 @@ __Created by Aliaksandr Bahdanau__
 
 ## User
 
-For all the rest endpoint if user is not authorized:
+- For all the rest endpoint if user is not authorized:
 
   ```TypeScript
   code: 401
@@ -140,7 +140,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
   code: 404
   {
-    message: "Language with this id does not exist"
+    message: "Language does not exist"
   }
   ```
 
@@ -191,7 +191,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
   code: 404
   {
-    message: "Language with this id does not exist"
+    message: "Language does not exist"
   }
   ```
   
@@ -211,7 +211,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
   code: 404
   {
-    message: "Language with this id does not exist"
+    message: "Language does not exist"
   }
   ```
 
@@ -233,7 +233,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
   code: 404
   {
-    message: "Language with this id does not exist"
+    message: "Language does not exist"
   }
   ```
   
@@ -308,7 +308,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
     code: 404
     {
-      message: "Card with this id does not exist";
+      message: "Card does not exist";
     }
    ```
 - `DELETE api/v1/cards/:id` - endpoint for deleting card.
@@ -318,7 +318,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
     code: 404
     {
-      message: "Card with this id does not exist";
+      message: "Card does not exist";
     }
   ```
 
@@ -331,7 +331,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
     code: 404
     {
-      message: "Card with this id does not exist";
+      message: "Card does not exist";
     }
    ```
 
@@ -388,7 +388,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
   code: 403
   {
-    message: "Task was made by another user";
+    message: "You are not allowed to do this"
   }
   ```
 
@@ -410,7 +410,7 @@ For all the rest endpoint if user is not authorized:
   ```TypeScript
   code: 403
   {
-    message: "Task was made by another user";
+    message: "You are not allowed to do this"
   }
   ```
 
