@@ -244,7 +244,8 @@ __Created by Aliaksandr Bahdanau__
 - `GET api/v1/languages?limit=number&offset=number` - endpoint for receiving languages with pagination.
   
   Supports:
-    - orderBy{Name, Date}={asc,desc}
+    - orderBy={name, date}
+    - sort={asc,desc}
     - search=string 
 
   Returns:
@@ -350,7 +351,8 @@ __Created by Aliaksandr Bahdanau__
 - `GET api/v1/cards?limit=Number&offset=Number` - endpoint for receiving cards with pagination.
 
   Supports:
-  - orderBy{Foreign, Native, Date}={asc,desc}
+  - orderBy={foreign, native, date}
+  - sort={asc,desc}
   - search{Foreign, Native}=string
   - languageId=number
 
@@ -444,10 +446,10 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-- `GET api/v1/tasks?limit=number&offset=number` - endpoint for receiving uncompleted tasks with pagination.
+- `GET api/v1/tasks?limit=number&offset=number` - endpoint for receiving uncompleted tasks with pagination. Sorting by date.
 
   Supports:
-  - orderByDate={asc,desc}
+  - sort={asc,desc}
   - searchWord=string
 
   Returns:
