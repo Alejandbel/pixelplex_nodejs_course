@@ -50,10 +50,11 @@ ENTITIES
     userId: number,
     cardId: number,
     target: 'to_native'|'to_foreign',
-    completeStatus: null|'fail'|'succes',
+    completeStatus: null|'fail'|'success',
     createdAt: date,
     updatedAt: date,
 }
+
 ```
 
 ```
