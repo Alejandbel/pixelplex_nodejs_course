@@ -387,7 +387,7 @@ __Created by Aliaksandr Bahdanau__
   ```TypeScript
     code: 404
     {
-      message: "Card does not exist";
+      message: "Language does not exist";
     }
    ```
 
