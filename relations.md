@@ -12,6 +12,8 @@ ENTITIES
     token: string,
     nativeLanguageId: number,
     role: 'admin'|'user',
+    createdAt: date,
+    updatedAt: date,
 }
 
 2. Language:
@@ -19,7 +21,8 @@ ENTITIES
     id: number,
     title: string,
     code: string,
-    dateCreated: date,
+    createdAt: date,
+    updatedAt: date,
 }
 
 3. Card:
@@ -28,7 +31,8 @@ ENTITIES
     userId: number,
     foreignWordId: number,
     nativeWordId: number,
-    dateCreated: date,
+    createdAt: date,
+    updatedAt: date,
 }
 
 4. Word:
@@ -36,6 +40,8 @@ ENTITIES
     id: number,
     languageId: number,
     word: string,
+    createdAt: date,
+    updatedAt: date,
 }
 
 5. Task:
@@ -45,7 +51,8 @@ ENTITIES
     cardId: number,
     target: 'to_native'|'to_foreign',
     completeStatus: null|'fail'|'succes',
-    dateCreated: date,
+    createdAt: date,
+    updatedAt: date,
 }
 ```
 
@@ -64,10 +71,7 @@ User.id(PK) - Task.userId(FK)
 4. User - Card: one-to-many relation
 User.id(PK) - Card.userId(FK)
 
-5. Word - Word: many-to-many relation
-Described in Card
-
-6. Language - User: one-to-many relation
+5. Language - User: one-to-many relation
 Language.id(PK) - User.nativeLanguageId(FK)
 
 ```
