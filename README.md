@@ -110,7 +110,7 @@ __Created by Aliaksandr Bahdanau__
   If password not match email:
 
   ```TypeScript
-  code: 400
+  code: 401
   {
     message: "Wrong password";
   }
