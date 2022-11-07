@@ -50,11 +50,21 @@ ENTITIES
     userId: number,
     cardId: number,
     target: 'to_native'|'to_foreign',
-    completeStatus: null|'fail'|'success',
+    isCompleted: boolean,
     createdAt: date,
     updatedAt: date,
 }
 
+6. Answer:
+{
+    id: number,
+    userId: number,
+    taskId: number,
+    answerWord: string,
+    isSuccess: boolean,
+    createdAt: date,
+    updatedAt: date,
+}
 ```
 
 ```
@@ -75,4 +85,9 @@ User.id(PK) - Card.userId(FK)
 5. Language - User: one-to-many relation
 Language.id(PK) - User.nativeLanguageId(FK)
 
+6. User - Answer: one-to-many relation
+User.id(PK) - Answer.userId(FK)
+
+7. Task - Answer: one-to-many relation
+Task.id(PK) - Answer.taskId(FK)
 ```
