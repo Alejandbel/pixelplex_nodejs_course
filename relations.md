@@ -9,7 +9,6 @@ ENTITIES
     name: string,
     email: string,
     password: string,
-    token: string,
     nativeLanguageId: number,
     role: 'admin'|'user',
     createdAt: date,
