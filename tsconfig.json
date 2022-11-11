@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "paths": {
       "@middleware": ["middleware"],
+      "@errors": ["errors"],
     }
   },
   "include": ["./src/**/*.ts"],
