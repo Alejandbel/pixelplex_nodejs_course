@@ -9,11 +9,15 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "removeComments": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@middleware": ["middleware"],
+    }
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
     "files": true
-  }
+  },
+
 }
