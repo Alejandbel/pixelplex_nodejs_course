@@ -35,7 +35,7 @@ CREATE TABLE "users"
     "normalizedEmail"  VARCHAR(256) NOT NULL UNIQUE,
     "password"         VARCHAR(256) NOT NULL,
     "role"             ROLE_TYPE    NOT NULL,
-    "nativeLanguageId" INT          REFERENCES "languages" ("id") ON DELETE SET NULL NOT NULL,
+    "nativeLanguageId" INT          REFERENCES "languages" ("id") ON DELETE SET NULL,
     "createdAt"        TIMESTAMP    NOT NULL,
     "updatedAt"        TIMESTAMP    NOT NULL
 );
