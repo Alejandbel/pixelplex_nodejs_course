@@ -52,13 +52,13 @@ CREATE TABLE "words"
 
 CREATE TABLE "cards"
 (
-    "id"                SERIAL PRIMARY KEY,
-    "userId"            INT REFERENCES "users" ("id") ON DELETE CASCADE NOT NULL,
-    "nativeLanguageId"  INT REFERENCES "words" ("id") ON DELETE CASCADE NOT NULL,
-    "foreignLanguageId" INT REFERENCES "words" ("id") ON DELETE CASCADE NOT NULL,
-    "createdAt"         TIMESTAMP                                       NOT NULL,
-    "updatedAt"         TIMESTAMP                                       NOT NULL,
-    UNIQUE ("userId", "nativeLanguageId", "foreignLanguageId")
+    "id"            SERIAL PRIMARY KEY,
+    "userId"        INT REFERENCES "users" ("id") ON DELETE CASCADE NOT NULL,
+    "nativeWordId"  INT REFERENCES "words" ("id") ON DELETE CASCADE NOT NULL,
+    "foreignWordId" INT REFERENCES "words" ("id") ON DELETE CASCADE NOT NULL,
+    "createdAt"     TIMESTAMP                                       NOT NULL,
+    "updatedAt"     TIMESTAMP                                       NOT NULL,
+    UNIQUE ("userId", "nativeWordId", "foreignWordId")
 );
 
 CREATE TYPE TARGET_TYPE AS ENUM ('to_native', 'to_foreign');
