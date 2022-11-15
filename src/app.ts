@@ -1,11 +1,11 @@
 import express from 'express';
 
 import { mountRouter as mountApiRouter } from './api';
-import { logRequest, processError, processNotFoundEndpoint } from '@middleware';
+import { logRequest, parseJson, processError, processNotFoundEndpoint } from '@middleware';
 
 const app = express();
 
-app.use(express.json());
+app.use(parseJson);
 
 app.use(logRequest);
 
