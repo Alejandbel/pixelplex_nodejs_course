@@ -13,8 +13,8 @@ export class TasksController {
 
   static getStatistic = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { dateBegin, dateEnd, languages } = req.query;
-      console.log('getStatistic', dateBegin, dateEnd, languages);
+      const { dateBegin, dateEnd, languageId } = req.query;
+      console.log('getStatistic', dateBegin, dateEnd, languageId);
       res.send('ok');
     } catch (error) {
       next(error);
