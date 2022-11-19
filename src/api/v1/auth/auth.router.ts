@@ -7,9 +7,9 @@ import { validatePayload } from '@middleware';
 
 const router = express.Router();
 
-router.post('/signup', AuthValidation.signUp, validatePayload, AuthController.signUpPOST);
-router.post('/login', AuthValidation.login, validatePayload, AuthController.loginPOST);
-router.post('/logout', AuthController.logoutPOST);
+router.post('/signup', AuthValidation.signUp, validatePayload, AuthController.signUp);
+router.post('/login', AuthValidation.login, validatePayload, AuthController.login);
+router.post('/logout', AuthController.logout);
 
 export function mountRouter(routing: IRouter): void {
   routing.use('/auth', router);
