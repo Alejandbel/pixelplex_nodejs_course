@@ -14,6 +14,7 @@ export class LanguagesValidation {
         },
         errorMessage: 'Incorrect limit',
       },
+      toInt: true,
     },
     offset: {
       in: ['query'],
@@ -27,6 +28,7 @@ export class LanguagesValidation {
         },
         errorMessage: 'Incorrect offset',
       },
+      toInt: true,
     },
     sort: {
       optional: true,
@@ -63,6 +65,7 @@ export class LanguagesValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 
@@ -96,6 +99,7 @@ export class LanguagesValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     title: {
       in: ['body'],
@@ -120,6 +124,7 @@ export class LanguagesValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 }

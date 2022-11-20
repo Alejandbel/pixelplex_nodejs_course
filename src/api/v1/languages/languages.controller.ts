@@ -1,11 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
+import { LanguagesService } from './languages.service';
 
 export class LanguagesController {
   static getAllLanguages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { limit, offset, orderBy, sort, search } = req.query;
-      console.log('getAllLanguages', limit, offset, orderBy, sort, search);
-      res.send('ok');
+      const { limit, offset, orderBy, sort, search } = req.query as any;
+      const languages = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
+      res.status(200).json({
+        items: languages,
+        pagination: {
+          offset,
+          limit,
+          total: 10,
+        },
+      });
     } catch (error) {
       next(error);
     }
@@ -13,9 +21,9 @@ export class LanguagesController {
 
   static getLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params;
-      console.log('getLanguage', id);
-      res.send('ok');
+      const { id } = req.params as any;
+      const language = await LanguagesService.getLanguage(id);
+      res.status(200).json(language);
     } catch (error) {
       next(error);
     }
@@ -24,8 +32,8 @@ export class LanguagesController {
   static addLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { title, code } = req.body;
-      console.log('addLanguage', title, code);
-      res.send('ok');
+      const language = await LanguagesService.addLanguage(title, code);
+      res.status(201).json(language);
     } catch (error) {
       next(error);
     }
@@ -33,10 +41,10 @@ export class LanguagesController {
 
   static updateLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params;
+      const { id } = req.params as any;
       const props = req.body;
-      console.log('updateLanguage', id, props);
-      res.send('ok');
+      const language = await LanguagesService.updateLanguage(id, props);
+      res.status(200).json(language);
     } catch (error) {
       next(error);
     }
@@ -44,9 +52,9 @@ export class LanguagesController {
 
   static deleteLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params;
-      console.log('deleteLanguage', id);
-      res.send('ok');
+      const { id } = req.params as any;
+      await LanguagesService.deleteLanguage(id);
+      res.status(200).send();
     } catch (error) {
       next(error);
     }
