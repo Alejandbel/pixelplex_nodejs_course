@@ -13,6 +13,7 @@
     "paths": {
       "@middleware": ["middleware"],
       "@errors": ["errors"],
+      "@interfaces": ["interfaces"],
     }
   },
   "include": ["./src/**/*.ts"],
