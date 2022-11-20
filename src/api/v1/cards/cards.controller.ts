@@ -1,10 +1,30 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { CardsService } from './cards.service';
+import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
+import { Card, ICard } from './cards.entity';
 
 export class CardsController {
-  static getAllCards = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static getAllCards = async (
+    req: TypedRequestQuery<{
+      limit: number;
+      offset: number;
+      orderBy: 'foreign' | 'native' | 'date';
+      sort: 'asc' | 'desc';
+      search: string;
+      languageId: number;
+    }>,
+    res: Response<{
+      items: Card[];
+      pagination: {
+        offset: number;
+        limit: number;
+        total: number;
+      };
+    }>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { limit, offset, orderBy, sort, search, languageId } = req.query as any;
+      const { limit, offset, orderBy, sort, search, languageId } = req.query;
       const cards = await CardsService.getAllCards(limit, offset, orderBy, sort, search, languageId);
       res.status(200).json({
         items: cards,
@@ -19,9 +39,13 @@ export class CardsController {
     }
   };
 
-  static getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static getCard = async (
+    req: TypedRequestParams<{ id: number }>,
+    res: Response<Card>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { id } = req.params as unknown as { id: number };
+      const { id } = req.params;
       const card = await CardsService.getCard(id);
       res.status(200).json(card);
     } catch (error) {
@@ -29,7 +53,11 @@ export class CardsController {
     }
   };
 
-  static addCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static addCard = async (
+    req: TypedRequestBody<Required<ICard>>,
+    res: Response<Card>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const { nativeLanguageId, foreignLanguageId, nativeWord, foreignWord } = req.body;
       const card = await CardsService.addCard(nativeLanguageId, foreignLanguageId, nativeWord, foreignWord);
@@ -39,9 +67,13 @@ export class CardsController {
     }
   };
 
-  static updateCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static updateCard = async (
+    req: TypedRequestParams<{ id: number }> & TypedRequestBody<ICard>,
+    res: Response<Card>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { id } = req.params as unknown as { id: number };
+      const { id } = req.params;
       const props = req.body;
       const card = await CardsService.updateCard(id, props);
       res.status(200).json(card);
@@ -50,9 +82,13 @@ export class CardsController {
     }
   };
 
-  static deleteCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static deleteCard = async (
+    req: TypedRequestParams<{ id: number }>,
+    res: Response<void>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { id } = req.params as unknown as { id: number };
+      const { id } = req.params;
       await CardsService.deleteCard(id);
       res.status(200).send();
     } catch (error) {
