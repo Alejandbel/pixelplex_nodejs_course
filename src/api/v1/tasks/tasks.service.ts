@@ -1,5 +1,5 @@
 import { Task } from './tasks.entity';
-import { TASKS_CONSTANTS } from './tasks.constants';
+import { TARGET_CONSTANTS } from './tasks.constants';
 
 export class TasksService {
   static getUncompletedTasks = async (
@@ -14,13 +14,13 @@ export class TasksService {
         id: 1,
         foreignLanguageId: 2,
         word: 'House',
-        target: TASKS_CONSTANTS.TO_FOREIGN,
+        target: TARGET_CONSTANTS.TO_FOREIGN,
       },
       {
         id: 2,
         foreignLanguageId: 3,
         word: 'Дом',
-        target: TASKS_CONSTANTS.TO_NATIVE,
+        target: TARGET_CONSTANTS.TO_NATIVE,
       },
     ];
   };
@@ -43,11 +43,11 @@ export class TasksService {
       id: 1,
       foreignLanguageId: 2,
       word: 'House',
-      target: TASKS_CONSTANTS.TO_NATIVE,
+      target: TARGET_CONSTANTS.TO_NATIVE,
     };
   };
 
-  static addTask = async (languageId: number, target: 'to_foreign' | 'to_native'): Promise<Task> => {
+  static addTask = async (languageId: number, target: TARGET_CONSTANTS): Promise<Task> => {
     console.log('addTask', languageId, target);
     return new Task('House', languageId, target);
   };

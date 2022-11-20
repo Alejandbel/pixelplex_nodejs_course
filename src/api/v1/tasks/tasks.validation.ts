@@ -1,5 +1,5 @@
 import { checkSchema } from 'express-validator';
-import { TASKS_CONSTANTS } from './tasks.constants';
+import { TARGET_CONSTANTS } from './tasks.constants';
 
 export class TasksValidation {
   static getUncompletedTasks = checkSchema({
@@ -122,7 +122,7 @@ export class TasksValidation {
         options: { checkFalsy: true },
       },
       isIn: {
-        options: [[TASKS_CONSTANTS.TO_FOREIGN, TASKS_CONSTANTS.TO_NATIVE]],
+        options: [[TARGET_CONSTANTS.TO_FOREIGN, TARGET_CONSTANTS.TO_NATIVE]],
       },
     },
   });
