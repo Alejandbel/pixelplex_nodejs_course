@@ -14,6 +14,7 @@ export class UsersValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 }
