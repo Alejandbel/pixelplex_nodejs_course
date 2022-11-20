@@ -8,6 +8,7 @@ export class AuthService {
     console.log('login', email, password);
     return 'thisIsBestAuthTokenEver123456789$#@!&';
   }
+
   static async logout(): Promise<void> {
     console.log('logout');
   }
