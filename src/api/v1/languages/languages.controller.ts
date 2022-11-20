@@ -1,10 +1,29 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { LanguagesService } from './languages.service';
+import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
+import { ILanguage, Language } from './languages.entity';
 
 export class LanguagesController {
-  static getAllLanguages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static getAllLanguages = async (
+    req: TypedRequestQuery<{
+      limit: number;
+      offset: number;
+      orderBy: 'name' | 'date';
+      sort: 'asc' | 'desc';
+      search: string;
+    }>,
+    res: Response<{
+      items: Language[];
+      pagination: {
+        offset: number;
+        limit: number;
+        total: number;
+      };
+    }>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { limit, offset, orderBy, sort, search } = req.query as any;
+      const { limit, offset, orderBy, sort, search } = req.query;
       const languages = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
       res.status(200).json({
         items: languages,
@@ -19,9 +38,13 @@ export class LanguagesController {
     }
   };
 
-  static getLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static getLanguage = async (
+    req: TypedRequestParams<{ id: number }>,
+    res: Response<Language>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { id } = req.params as any;
+      const { id } = req.params;
       const language = await LanguagesService.getLanguage(id);
       res.status(200).json(language);
     } catch (error) {
@@ -29,7 +52,11 @@ export class LanguagesController {
     }
   };
 
-  static addLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static addLanguage = async (
+    req: TypedRequestBody<Required<ILanguage>>,
+    res: Response<Language>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const { title, code } = req.body;
       const language = await LanguagesService.addLanguage(title, code);
@@ -39,7 +66,11 @@ export class LanguagesController {
     }
   };
 
-  static updateLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static updateLanguage = async (
+    req: TypedRequestParams<{ id: number }> & TypedRequestBody<ILanguage>,
+    res: Response<Language>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const { id } = req.params as any;
       const props = req.body;
@@ -50,9 +81,13 @@ export class LanguagesController {
     }
   };
 
-  static deleteLanguage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  static deleteLanguage = async (
+    req: TypedRequestParams<{ id: number }>,
+    res: Response<void>,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const { id } = req.params as any;
+      const { id } = req.params;
       await LanguagesService.deleteLanguage(id);
       res.status(200).send();
     } catch (error) {
