@@ -1,11 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
+import { CardsService } from './cards.service';
 
 export class CardsController {
   static getAllCards = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { limit, offset, orderBy, sort, search, languageId } = req.query;
-      console.log('getAllCards', limit, offset, orderBy, sort, search, languageId);
-      res.send('ok');
+      const { limit, offset, orderBy, sort, search, languageId } = req.query as any;
+      const cards = await CardsService.getAllCards(limit, offset, orderBy, sort, search, languageId);
+      res.status(200).json({
+        items: cards,
+        pagination: {
+          offset,
+          limit,
+          total: 10,
+        },
+      });
     } catch (error) {
       next(error);
     }
@@ -13,9 +21,9 @@ export class CardsController {
 
   static getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params;
-      console.log('getCards', id);
-      res.send('ok');
+      const { id } = req.params as unknown as { id: number };
+      const card = await CardsService.getCard(id);
+      res.status(200).json(card);
     } catch (error) {
       next(error);
     }
@@ -24,8 +32,8 @@ export class CardsController {
   static addCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { nativeLanguageId, foreignLanguageId, nativeWord, foreignWord } = req.body;
-      console.log('addCard', nativeLanguageId, foreignLanguageId, nativeWord, foreignWord);
-      res.send('ok');
+      const card = await CardsService.addCard(nativeLanguageId, foreignLanguageId, nativeWord, foreignWord);
+      res.status(201).json(card);
     } catch (error) {
       next(error);
     }
@@ -33,10 +41,10 @@ export class CardsController {
 
   static updateCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params;
+      const { id } = req.params as unknown as { id: number };
       const props = req.body;
-      console.log('updateCard', id, props);
-      res.send('ok');
+      const card = await CardsService.updateCard(id, props);
+      res.status(200).json(card);
     } catch (error) {
       next(error);
     }
@@ -44,9 +52,9 @@ export class CardsController {
 
   static deleteCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { id } = req.params;
-      console.log('deleteCard', id);
-      res.send('ok');
+      const { id } = req.params as unknown as { id: number };
+      await CardsService.deleteCard(id);
+      res.status(200).send();
     } catch (error) {
       next(error);
     }

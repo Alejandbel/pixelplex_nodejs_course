@@ -2,7 +2,6 @@ import { checkSchema } from 'express-validator';
 
 export class CardsValidation {
   static getAllCards = checkSchema({
-    //limit, offset, orderBy, sort, search, languageId
     limit: {
       in: ['query'],
       exists: {
@@ -15,6 +14,7 @@ export class CardsValidation {
         },
         errorMessage: 'Incorrect limit',
       },
+      toInt: true,
     },
     offset: {
       in: ['query'],
@@ -28,6 +28,7 @@ export class CardsValidation {
         },
         errorMessage: 'Incorrect offset',
       },
+      toInt: true,
     },
     languageId: {
       in: ['query'],
@@ -41,6 +42,7 @@ export class CardsValidation {
         },
         errorMessage: 'Incorrect languageId',
       },
+      toInt: true,
     },
     sort: {
       optional: true,
@@ -75,6 +77,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 
@@ -92,6 +95,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     foreignLanguageId: {
       in: ['body'],
@@ -106,6 +110,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     nativeWord: {
       in: ['body'],
@@ -136,6 +141,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     nativeLanguageId: {
       in: ['body'],
@@ -146,6 +152,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     foreignLanguageId: {
       in: ['body'],
@@ -156,6 +163,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     nativeWord: {
       in: ['body'],
@@ -176,6 +184,7 @@ export class CardsValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 }
