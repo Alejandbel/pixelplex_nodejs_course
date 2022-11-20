@@ -15,6 +15,7 @@ export class TasksValidation {
         },
         errorMessage: 'Incorrect limit',
       },
+      toInt: true,
     },
     offset: {
       in: ['query'],
@@ -28,6 +29,7 @@ export class TasksValidation {
         },
         errorMessage: 'Incorrect offset',
       },
+      toInt: true,
     },
     sort: {
       optional: true,
@@ -52,6 +54,7 @@ export class TasksValidation {
       isDate: {
         errorMessage: 'Invalid date',
       },
+      toDate: true,
     },
     dateEnd: {
       in: ['query'],
@@ -62,6 +65,7 @@ export class TasksValidation {
       isDate: {
         errorMessage: 'Invalid date',
       },
+      toDate: true,
     },
     languageId: {
       in: ['query'],
@@ -75,6 +79,7 @@ export class TasksValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 
@@ -91,6 +96,7 @@ export class TasksValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
   });
 
@@ -107,6 +113,7 @@ export class TasksValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     target: {
       in: ['body'],
@@ -133,6 +140,7 @@ export class TasksValidation {
           min: 0,
         },
       },
+      toInt: true,
     },
     answer: {
       in: ['body'],
