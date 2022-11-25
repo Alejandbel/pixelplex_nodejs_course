@@ -1,47 +1,43 @@
 import { checkSchema } from 'express-validator';
+import { SORT_TYPES } from '@constants';
+import { LANGUAGES_ORDER_BY } from './languages.constants';
 
 export class LanguagesValidation {
   static getAllLanguages = checkSchema({
     limit: {
       in: ['query'],
       exists: {
-        errorMessage: 'Limit is required',
         options: { checkFalsy: true },
       },
       isInt: {
         options: {
           min: 0,
         },
-        errorMessage: 'Incorrect limit',
       },
-      toInt: true,
     },
     offset: {
       in: ['query'],
       exists: {
-        errorMessage: 'Offset is required',
         options: { checkFalsy: true },
       },
       isInt: {
         options: {
           min: 0,
         },
-        errorMessage: 'Incorrect offset',
       },
-      toInt: true,
     },
     sort: {
       optional: true,
       in: ['query'],
       isIn: {
-        options: [['asc', 'desc']],
+        options: [[SORT_TYPES.ASC, SORT_TYPES.DESC]],
       },
     },
     orderBy: {
       in: ['query'],
       optional: true,
       isIn: {
-        options: [['date', 'name']],
+        options: [[LANGUAGES_ORDER_BY.NAME, LANGUAGES_ORDER_BY.DATE]],
       },
     },
     search: {
@@ -54,18 +50,15 @@ export class LanguagesValidation {
     id: {
       in: ['params'],
       exists: {
-        errorMessage: 'Id is required',
         options: {
           checkFalsy: true,
         },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
       },
-      toInt: true,
     },
   });
 
@@ -73,14 +66,12 @@ export class LanguagesValidation {
     title: {
       in: ['body'],
       exists: {
-        errorMessage: 'Title is required',
         options: { checkFalsy: true },
       },
     },
     code: {
       in: ['body'],
       exists: {
-        errorMessage: 'Code is required',
         options: { checkFalsy: true },
       },
     },
@@ -90,16 +81,13 @@ export class LanguagesValidation {
     id: {
       in: ['params'],
       exists: {
-        errorMessage: 'Id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
       },
-      toInt: true,
     },
     title: {
       in: ['body'],
@@ -115,16 +103,13 @@ export class LanguagesValidation {
     id: {
       in: ['params'],
       exists: {
-        errorMessage: 'Id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
       },
-      toInt: true,
     },
   });
 }
