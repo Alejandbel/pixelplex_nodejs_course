@@ -1,6 +1,8 @@
 import { NextFunction, Response } from 'express';
-import { TasksService } from './tasks.service';
+
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
+
+import { TasksService } from './tasks.service';
 import {
   AddTaskBodyDTO,
   AddTaskResponseDTO,

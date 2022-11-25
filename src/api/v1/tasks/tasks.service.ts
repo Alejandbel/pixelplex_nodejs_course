@@ -1,5 +1,5 @@
-import { Task } from './tasks.entity';
 import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
+import { Task } from './tasks.entity';
 
 export class TasksService {
   static getUncompletedTasks = async (

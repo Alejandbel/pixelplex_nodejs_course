@@ -1,7 +1,8 @@
+import { SORT_TYPES } from '@constants';
+
+import { CARDS_ORDER_BY } from './cards.constants';
 import { Card } from './cards.entity';
 import { ICard } from './cards.types';
-import { CARDS_ORDER_BY } from './cards.constants';
-import { SORT_TYPES } from '@constants';
 
 export class CardsService {
   static getAllCards = async (

@@ -1,6 +1,8 @@
 import { NextFunction, Response } from 'express';
-import { CardsService } from './cards.service';
+
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
+
+import { CardsService } from './cards.service';
 import {
   AddCardBodyDTO,
   AddCardResponseDTO,

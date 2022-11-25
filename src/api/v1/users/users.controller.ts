@@ -1,6 +1,8 @@
 import { NextFunction, Response } from 'express';
-import { UsersRepository } from './users.repository';
+
 import { TypedRequestBody } from '@interfaces';
+
+import { UsersRepository } from './users.repository';
 import { ChangeLanguageBodyDTO, ChangeLanguageResponseDTO } from './users.types';
 
 export class UsersController {

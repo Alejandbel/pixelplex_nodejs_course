@@ -1,6 +1,8 @@
 import { checkSchema } from 'express-validator';
-import { TARGET_CONSTANTS } from './tasks.constants';
+
 import { SORT_TYPES } from '@constants';
+
+import { TARGET_CONSTANTS } from './tasks.constants';
 
 export class TasksValidation {
   static getUncompletedTasks = checkSchema({

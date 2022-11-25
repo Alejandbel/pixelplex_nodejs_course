@@ -1,7 +1,8 @@
-import { Card } from './cards.entity';
 import { SORT_TYPES } from '@constants';
-import { CARDS_ORDER_BY } from './cards.constants';
 import { ParamsId } from '@types';
+
+import { CARDS_ORDER_BY } from './cards.constants';
+import { Card } from './cards.entity';
 
 export interface ICard {
   nativeLanguageId: number;

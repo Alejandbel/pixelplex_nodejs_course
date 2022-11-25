@@ -1,7 +1,8 @@
-import { Task } from './tasks.entity';
-import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
 import { SORT_TYPES } from '@constants';
 import { ParamsId } from '@types';
+
+import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
+import { Task } from './tasks.entity';
 
 export type GetUncompletedTasksQueryDTO = { limit: number; offset: number; sort: SORT_TYPES; searchWord: string };
 export type GetUncompletedTasksResponseDTO = {

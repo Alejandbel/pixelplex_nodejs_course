@@ -1,7 +1,8 @@
 import express from 'express';
 
-import { mountRouter as mountApiRouter } from './api';
 import { logRequest, parseJson, processError, processNotFoundEndpoint } from '@middleware';
+
+import { mountRouter as mountApiRouter } from './api';
 
 const app = express();
 

@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { AuthService } from './auth.service';
+
 import { TypedRequestBody } from '@interfaces';
+
+import { AuthService } from './auth.service';
 import { LoginBodyDTO, LoginResponseDTO, LogoutResponseDTO, SignUpBodyDTO, SignUpResponseDTO } from './auth.types';
 
 export class AuthController {

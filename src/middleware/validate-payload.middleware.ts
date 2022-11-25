@@ -1,5 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { validationResult } from 'express-validator';
+
 import { KeyValueRequest } from '@interfaces';
 
 export const validatePayload = <

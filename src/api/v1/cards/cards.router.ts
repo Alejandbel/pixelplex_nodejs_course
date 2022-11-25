@@ -1,10 +1,11 @@
-import * as express from 'express';
 import { IRouter } from 'express';
+import * as express from 'express';
+
+import { validatePayload } from '@middleware';
 
 import { CardsController } from './cards.controller';
-import { CardsValidation } from './cards.validation';
-import { validatePayload } from '@middleware';
 import { CardsSanitization } from './cards.sanitization';
+import { CardsValidation } from './cards.validation';
 
 const router = express.Router();
 

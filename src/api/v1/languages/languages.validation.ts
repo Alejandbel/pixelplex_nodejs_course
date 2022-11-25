@@ -1,5 +1,7 @@
 import { checkSchema } from 'express-validator';
+
 import { SORT_TYPES } from '@constants';
+
 import { LANGUAGES_ORDER_BY } from './languages.constants';
 
 export class LanguagesValidation {

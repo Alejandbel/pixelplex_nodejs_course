@@ -1,10 +1,11 @@
-import * as express from 'express';
 import { IRouter } from 'express';
+import * as express from 'express';
+
+import { validatePayload } from '@middleware';
 
 import { LanguagesController } from './languages.controller';
-import { LanguagesValidation } from './languages.validation';
-import { validatePayload } from '@middleware';
 import { LanguagesSanitization } from './languages.sanitization';
+import { LanguagesValidation } from './languages.validation';
 
 const router = express.Router();
 

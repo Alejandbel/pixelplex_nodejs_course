@@ -1,6 +1,8 @@
 import { checkSchema } from 'express-validator';
-import { CARDS_ORDER_BY } from './cards.constants';
+
 import { SORT_TYPES } from '@constants';
+
+import { CARDS_ORDER_BY } from './cards.constants';
 
 export class CardsValidation {
   static getAllCards = checkSchema({
