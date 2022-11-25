@@ -1,20 +1,24 @@
 import { NextFunction, Response } from 'express';
 import { TasksService } from './tasks.service';
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
-import { Task } from './tasks.entity';
-import { TARGET_CONSTANTS } from './tasks.constants';
+import {
+  AddTaskBodyDTO,
+  AddTaskResponseDTO,
+  CompleteTaskBodyDTO,
+  CompleteTaskParamsDTO,
+  CompleteTaskResponseDTO,
+  GetStatisticQueryDTO,
+  GetStatisticResponseDTO,
+  GetTaskParamsDTO,
+  GetTaskResponseDTO,
+  GetUncompletedTasksQueryDTO,
+  GetUncompletedTasksResponseDTO,
+} from './tasks.types';
 
 export class TasksController {
   static getUncompletedTasks = async (
-    req: TypedRequestQuery<{ limit: number; offset: number; sort: 'asc' | 'desc'; searchWord: string }>,
-    res: Response<{
-      items: Task[];
-      pagination: {
-        offset: number;
-        limit: number;
-        total: number;
-      };
-    }>,
+    req: TypedRequestQuery<GetUncompletedTasksQueryDTO>,
+    res: Response<GetUncompletedTasksResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -34,8 +38,8 @@ export class TasksController {
   };
 
   static getStatistic = async (
-    req: TypedRequestQuery<{ dateBegin: Date; dateEnd: Date; languageId: number }>,
-    res: Response<{ correct: number; incorrect: number }>,
+    req: TypedRequestQuery<GetStatisticQueryDTO>,
+    res: Response<GetStatisticResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -48,8 +52,8 @@ export class TasksController {
   };
 
   static getTask = async (
-    req: TypedRequestParams<{ id: number }>,
-    res: Response<Task>,
+    req: TypedRequestParams<GetTaskParamsDTO>,
+    res: Response<GetTaskResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -62,8 +66,8 @@ export class TasksController {
   };
 
   static addTask = async (
-    req: TypedRequestBody<{ languageId: number; target: TARGET_CONSTANTS }>,
-    res: Response<Task>,
+    req: TypedRequestBody<AddTaskBodyDTO>,
+    res: Response<AddTaskResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -76,8 +80,8 @@ export class TasksController {
   };
 
   static completeTask = async (
-    req: TypedRequestParams<{ id: number }> & TypedRequestBody<{ answer: string }>,
-    res: Response<{ result: 'CORRECT' | 'INCORRECT' }>,
+    req: TypedRequestParams<CompleteTaskParamsDTO> & TypedRequestBody<CompleteTaskBodyDTO>,
+    res: Response<CompleteTaskResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {

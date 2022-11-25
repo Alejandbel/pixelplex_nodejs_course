@@ -1,5 +1,5 @@
 import { Task } from './tasks.entity';
-import { TARGET_CONSTANTS } from './tasks.constants';
+import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
 
 export class TasksService {
   static getUncompletedTasks = async (
@@ -52,8 +52,8 @@ export class TasksService {
     return new Task('House', languageId, target);
   };
 
-  static completeTask = async (id: number, answer: string): Promise<'CORRECT' | 'INCORRECT'> => {
+  static completeTask = async (id: number, answer: string): Promise<RESULT_CONSTANTS> => {
     console.log('completeTask', id, answer);
-    return 'CORRECT';
+    return RESULT_CONSTANTS.CORRECT;
   };
 }

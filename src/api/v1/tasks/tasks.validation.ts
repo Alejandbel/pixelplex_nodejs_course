@@ -1,5 +1,6 @@
 import { checkSchema } from 'express-validator';
 import { TARGET_CONSTANTS } from './tasks.constants';
+import { SORT_TYPES } from '@constants';
 
 export class TasksValidation {
   static getUncompletedTasks = checkSchema({
@@ -35,7 +36,7 @@ export class TasksValidation {
       optional: true,
       in: ['query'],
       isIn: {
-        options: [['asc', 'desc']],
+        options: [[SORT_TYPES.ASC, SORT_TYPES.DESC]],
       },
     },
     searchWord: {
