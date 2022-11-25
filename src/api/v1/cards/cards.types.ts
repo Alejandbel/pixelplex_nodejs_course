@@ -1,6 +1,7 @@
 import { Card } from './cards.entity';
 import { SORT_TYPES } from '@constants';
 import { CARDS_ORDER_BY } from './cards.constants';
+import { ParamsId } from '@types';
 
 export interface ICard {
   nativeLanguageId: number;
@@ -8,8 +9,6 @@ export interface ICard {
   nativeWord: string;
   foreignWord: string;
 }
-
-type ParamsId = { id: number };
 
 export type GetAllCardsQueryDTO = {
   limit: number;

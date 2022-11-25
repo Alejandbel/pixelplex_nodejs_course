@@ -15,6 +15,7 @@
       "@errors": ["errors"],
       "@interfaces": ["interfaces"],
       "@constants": ["constants"],
+      "@types": ["types"],
     }
   },
   "include": ["./src/**/*.ts"],
