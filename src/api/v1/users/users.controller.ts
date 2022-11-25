@@ -1,11 +1,12 @@
 import { NextFunction, Response } from 'express';
 import { UsersRepository } from './users.repository';
 import { TypedRequestBody } from '@interfaces';
+import { ChangeLanguageBodyDTO, ChangeLanguageResponseDTO } from './users.types';
 
 export class UsersController {
   static changeLanguage = async (
-    req: TypedRequestBody<{ languageId: number }>,
-    res: Response<{ message: string }>,
+    req: TypedRequestBody<ChangeLanguageBodyDTO>,
+    res: Response<ChangeLanguageResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
