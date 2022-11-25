@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { TypedRequestBody } from '@interfaces';
+import { LoginBodyDTO, LoginResponseDTO, LogoutResponseDTO, SignUpBodyDTO, SignUpResponseDTO } from './auth.types';
 
 export class AuthController {
   static signUp = async (
-    req: TypedRequestBody<{ email: string; password: string; name: string }>,
-    res: Response<{ token: string }>,
+    req: TypedRequestBody<SignUpBodyDTO>,
+    res: Response<SignUpResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -18,8 +19,8 @@ export class AuthController {
   };
 
   static login = async (
-    req: TypedRequestBody<{ email: string; password: string }>,
-    res: Response<{ token: string }>,
+    req: TypedRequestBody<LoginBodyDTO>,
+    res: Response<LoginResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -31,7 +32,7 @@ export class AuthController {
     }
   };
 
-  static logout = async (req: Request, res: Response<{ message: string }>, next: NextFunction): Promise<void> => {
+  static logout = async (req: Request, res: Response<LogoutResponseDTO>, next: NextFunction): Promise<void> => {
     try {
       await AuthService.logout();
       const message = 'Successful logout';
