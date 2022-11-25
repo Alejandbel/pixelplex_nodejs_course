@@ -7,30 +7,24 @@ export class TasksValidation {
     limit: {
       in: ['query'],
       exists: {
-        errorMessage: 'Limit is required',
         options: { checkFalsy: true },
       },
       isInt: {
         options: {
           min: 0,
         },
-        errorMessage: 'Incorrect limit',
       },
-      toInt: true,
     },
     offset: {
       in: ['query'],
       exists: {
-        errorMessage: 'Offset is required',
         options: { checkFalsy: true },
       },
       isInt: {
         options: {
           min: 0,
         },
-        errorMessage: 'Incorrect offset',
       },
-      toInt: true,
     },
     sort: {
       optional: true,
@@ -49,38 +43,26 @@ export class TasksValidation {
     dateBegin: {
       in: ['query'],
       exists: {
-        errorMessage: 'DateBegin is required',
         options: { checkFalsy: true },
       },
-      isDate: {
-        errorMessage: 'Invalid date',
-      },
-      toDate: true,
     },
     dateEnd: {
       in: ['query'],
       exists: {
-        errorMessage: 'DateEnd is required',
         options: { checkFalsy: true },
       },
-      isDate: {
-        errorMessage: 'Invalid date',
-      },
-      toDate: true,
+      isDate: true,
     },
     languageId: {
       in: ['query'],
       exists: {
-        errorMessage: 'Id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
       },
-      toInt: true,
     },
   });
 
@@ -88,11 +70,9 @@ export class TasksValidation {
     id: {
       in: ['params'],
       exists: {
-        errorMessage: 'id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
@@ -105,11 +85,9 @@ export class TasksValidation {
     languageId: {
       in: ['body'],
       exists: {
-        errorMessage: 'Id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
@@ -119,7 +97,6 @@ export class TasksValidation {
     target: {
       in: ['body'],
       exists: {
-        errorMessage: 'target is required',
         options: { checkFalsy: true },
       },
       isIn: {
@@ -132,21 +109,17 @@ export class TasksValidation {
     id: {
       in: ['params'],
       exists: {
-        errorMessage: 'Id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
       },
-      toInt: true,
     },
     answer: {
       in: ['body'],
       exists: {
-        errorMessage: 'Answer is required',
         options: { checkFalsy: true },
       },
     },
