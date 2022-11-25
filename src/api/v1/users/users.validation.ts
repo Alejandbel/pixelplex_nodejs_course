@@ -5,11 +5,9 @@ export class UsersValidation {
     languageId: {
       in: ['body'],
       exists: {
-        errorMessage: 'Id is required',
         options: { checkFalsy: true },
       },
       isInt: {
-        errorMessage: 'Invalid id',
         options: {
           min: 0,
         },
