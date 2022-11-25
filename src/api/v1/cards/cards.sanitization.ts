@@ -17,9 +17,6 @@ export class CardsSanitization {
     orderBy: {
       optional: true,
       in: ['query'],
-      isIn: {
-        options: [['foreign', 'native', 'date']],
-      },
     },
   });
 

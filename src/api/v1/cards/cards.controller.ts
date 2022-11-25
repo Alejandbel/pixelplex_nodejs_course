@@ -1,26 +1,23 @@
 import { NextFunction, Response } from 'express';
 import { CardsService } from './cards.service';
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
-import { Card, ICard } from './cards.entity';
+import {
+  AddCardBodyDTO,
+  AddCardResponseDTO,
+  DeleteCardParamsDTO,
+  GetAllCardsQueryDTO,
+  GetAllCardsResponseDTO,
+  GetCardParamsDTO,
+  GetCardResponseDTO,
+  UpdateCardBodyDTO,
+  UpdateCardParamsDTO,
+  UpdateCardResponseDTO,
+} from './cards.types';
 
 export class CardsController {
   static getAllCards = async (
-    req: TypedRequestQuery<{
-      limit: number;
-      offset: number;
-      orderBy: 'foreign' | 'native' | 'date';
-      sort: 'asc' | 'desc';
-      search: string;
-      languageId: number;
-    }>,
-    res: Response<{
-      items: Card[];
-      pagination: {
-        offset: number;
-        limit: number;
-        total: number;
-      };
-    }>,
+    req: TypedRequestQuery<GetAllCardsQueryDTO>,
+    res: Response<GetAllCardsResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -40,8 +37,8 @@ export class CardsController {
   };
 
   static getCard = async (
-    req: TypedRequestParams<{ id: number }>,
-    res: Response<Card>,
+    req: TypedRequestParams<GetCardParamsDTO>,
+    res: Response<GetCardResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -54,8 +51,8 @@ export class CardsController {
   };
 
   static addCard = async (
-    req: TypedRequestBody<Required<ICard>>,
-    res: Response<Card>,
+    req: TypedRequestBody<AddCardBodyDTO>,
+    res: Response<AddCardResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -68,8 +65,8 @@ export class CardsController {
   };
 
   static updateCard = async (
-    req: TypedRequestParams<{ id: number }> & TypedRequestBody<ICard>,
-    res: Response<Card>,
+    req: TypedRequestParams<UpdateCardParamsDTO> & TypedRequestBody<UpdateCardBodyDTO>,
+    res: Response<UpdateCardResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -83,7 +80,7 @@ export class CardsController {
   };
 
   static deleteCard = async (
-    req: TypedRequestParams<{ id: number }>,
+    req: TypedRequestParams<DeleteCardParamsDTO>,
     res: Response<void>,
     next: NextFunction
   ): Promise<void> => {

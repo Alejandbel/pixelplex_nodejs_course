@@ -13,10 +13,3 @@ export class Card {
     this.id = cardsCount;
   }
 }
-
-export interface ICard {
-  nativeLanguageId?: number;
-  foreignLanguageId?: number;
-  nativeWord?: string;
-  foreignWord?: string;
-}

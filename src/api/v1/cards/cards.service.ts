@@ -1,11 +1,14 @@
-import { Card, ICard } from './cards.entity';
+import { Card } from './cards.entity';
+import { ICard } from './cards.types';
+import { CARDS_ORDER_BY } from './cards.constants';
+import { SORT_TYPES } from '@constants';
 
 export class CardsService {
   static getAllCards = async (
     limit: number,
     offset: number,
-    orderBy: 'foreign' | 'native' | 'date',
-    sort: 'asc' | 'desc',
+    orderBy: CARDS_ORDER_BY,
+    sort: SORT_TYPES,
     search: string,
     languageId: number
   ): Promise<Card[]> => {
@@ -49,7 +52,7 @@ export class CardsService {
     return new Card(nativeLanguageId, foreignLanguageId, nativeWord, foreignWord);
   };
 
-  static updateCard = async (id: number, props: ICard): Promise<Card> => {
+  static updateCard = async (id: number, props: Partial<ICard>): Promise<Card> => {
     console.log('updateCard', id, props);
     return {
       id: 1,

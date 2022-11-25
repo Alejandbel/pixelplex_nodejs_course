@@ -1,4 +1,6 @@
 import { checkSchema } from 'express-validator';
+import { CARDS_ORDER_BY } from './cards.constants';
+import { SORT_TYPES } from '@constants';
 
 export class CardsValidation {
   static getAllCards = checkSchema({
@@ -39,14 +41,14 @@ export class CardsValidation {
       optional: true,
       in: ['query'],
       isIn: {
-        options: [['asc', 'desc']],
+        options: [[SORT_TYPES.ASC, SORT_TYPES.DESC]],
       },
     },
     orderBy: {
       optional: true,
       in: ['query'],
       isIn: {
-        options: [['foreign', 'native', 'date']],
+        options: [[CARDS_ORDER_BY.FOREIGN, CARDS_ORDER_BY.NATIVE, CARDS_ORDER_BY.DATE]],
       },
     },
     search: {
