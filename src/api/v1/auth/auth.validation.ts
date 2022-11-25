@@ -4,7 +4,6 @@ export class AuthValidation {
   static signUp = checkSchema({
     name: {
       exists: {
-        errorMessage: 'Username is required',
         options: { checkFalsy: true },
       },
       in: ['body'],
@@ -14,21 +13,17 @@ export class AuthValidation {
           min: 5,
           max: 256,
         },
-        errorMessage: 'Invalid username length',
       },
     },
     email: {
       exists: {
-        errorMessage: 'Email is required',
         options: { checkFalsy: true },
       },
       in: ['body'],
       isEmail: true,
-      errorMessage: 'Invalid email',
     },
     password: {
       exists: {
-        errorMessage: 'Password is required',
         options: { checkFalsy: true },
       },
       in: ['body'],
@@ -40,7 +35,6 @@ export class AuthValidation {
           minNumbers: 1,
           minSymbols: 1,
         },
-        errorMessage: 'Invalid password format',
       },
     },
   });
@@ -48,17 +42,13 @@ export class AuthValidation {
   static login = checkSchema({
     email: {
       exists: {
-        errorMessage: 'Email is required',
         options: { checkFalsy: true },
       },
       in: ['body'],
-      isEmail: {
-        errorMessage: 'Invalid email format',
-      },
+      isEmail: true,
     },
     password: {
       exists: {
-        errorMessage: 'Password is required',
         options: { checkFalsy: true },
       },
     },
