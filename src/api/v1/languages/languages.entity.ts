@@ -10,6 +10,6 @@ export class Language {
 }
 
 export interface ILanguage {
-  title?: string;
-  code?: string;
+  title: string;
+  code: string;
 }

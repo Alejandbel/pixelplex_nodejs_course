@@ -1,25 +1,23 @@
 import { NextFunction, Response } from 'express';
 import { LanguagesService } from './languages.service';
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
-import { ILanguage, Language } from './languages.entity';
+import {
+  AddLanguageBodyDTO,
+  AddLanguageResponseDTO,
+  DeleteLanguageParamsDTO,
+  GetAllLanguagesQueryDTO,
+  GetAllLanguagesResponseDTO,
+  GetLanguageParamsDTO,
+  GetLanguageResponseDTO,
+  UpdateLanguageBodyDTO,
+  UpdateLanguageParamsDTO,
+  UpdateLanguageResponseDTO,
+} from './languages.types';
 
 export class LanguagesController {
   static getAllLanguages = async (
-    req: TypedRequestQuery<{
-      limit: number;
-      offset: number;
-      orderBy: 'name' | 'date';
-      sort: 'asc' | 'desc';
-      search: string;
-    }>,
-    res: Response<{
-      items: Language[];
-      pagination: {
-        offset: number;
-        limit: number;
-        total: number;
-      };
-    }>,
+    req: TypedRequestQuery<GetAllLanguagesQueryDTO>,
+    res: Response<GetAllLanguagesResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -39,8 +37,8 @@ export class LanguagesController {
   };
 
   static getLanguage = async (
-    req: TypedRequestParams<{ id: number }>,
-    res: Response<Language>,
+    req: TypedRequestParams<GetLanguageParamsDTO>,
+    res: Response<GetLanguageResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -53,8 +51,8 @@ export class LanguagesController {
   };
 
   static addLanguage = async (
-    req: TypedRequestBody<Required<ILanguage>>,
-    res: Response<Language>,
+    req: TypedRequestBody<AddLanguageBodyDTO>,
+    res: Response<AddLanguageResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -67,8 +65,8 @@ export class LanguagesController {
   };
 
   static updateLanguage = async (
-    req: TypedRequestParams<{ id: number }> & TypedRequestBody<ILanguage>,
-    res: Response<Language>,
+    req: TypedRequestParams<UpdateLanguageParamsDTO> & TypedRequestBody<UpdateLanguageBodyDTO>,
+    res: Response<UpdateLanguageResponseDTO>,
     next: NextFunction
   ): Promise<void> => {
     try {
@@ -82,7 +80,7 @@ export class LanguagesController {
   };
 
   static deleteLanguage = async (
-    req: TypedRequestParams<{ id: number }>,
+    req: TypedRequestParams<DeleteLanguageParamsDTO>,
     res: Response<void>,
     next: NextFunction
   ): Promise<void> => {

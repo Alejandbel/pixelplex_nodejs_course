@@ -1,11 +1,13 @@
 import { ILanguage, Language } from './languages.entity';
+import { SORT_TYPES } from '@constants';
+import { LANGUAGES_ORDER_BY } from './languages.constants';
 
 export class LanguagesService {
   static getAllLanguages = async (
     limit: number,
     offset: number,
-    orderBy: 'name' | 'date',
-    sort: 'asc' | 'desc',
+    orderBy: LANGUAGES_ORDER_BY,
+    sort: SORT_TYPES,
     search: string
   ): Promise<Language[]> => {
     console.log('getAllLanguages', limit, offset, orderBy, sort, search);
@@ -37,7 +39,7 @@ export class LanguagesService {
     return new Language(title, code);
   };
 
-  static updateLanguage = async (id: number, props: ILanguage): Promise<Language> => {
+  static updateLanguage = async (id: number, props: Partial<ILanguage>): Promise<Language> => {
     console.log('updateLanguage', id, props);
     return {
       id: id,
