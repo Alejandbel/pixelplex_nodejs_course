@@ -1,3 +1,5 @@
+import { SORT_TYPES } from '@constants';
+
 import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
 import { Task } from './tasks.entity';
 
@@ -5,7 +7,7 @@ export class TasksService {
   static getUncompletedTasks = async (
     limit: number,
     offset: number,
-    sort: 'asc' | 'desc',
+    sort: SORT_TYPES,
     searchWord: string
   ): Promise<Task[]> => {
     console.log('getUncompletedTasks', limit, offset, sort, searchWord);
