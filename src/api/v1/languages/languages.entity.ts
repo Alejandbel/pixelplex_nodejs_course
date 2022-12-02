@@ -8,8 +8,3 @@ export class Language {
     this.id = languagesCount;
   }
 }
-
-export interface ILanguage {
-  title: string;
-  code: string;
-}

@@ -2,7 +2,12 @@ import { SORT_TYPES } from '@constants';
 import { ParamsId } from '@types';
 
 import { LANGUAGES_ORDER_BY } from './languages.constants';
-import { ILanguage, Language } from './languages.entity';
+import { Language } from './languages.entity';
+
+export interface ILanguage {
+  title: string;
+  code: string;
+}
 
 export type GetAllLanguagesQueryDTO = {
   limit: number;

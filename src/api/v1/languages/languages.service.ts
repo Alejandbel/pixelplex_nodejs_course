@@ -1,7 +1,8 @@
 import { SORT_TYPES } from '@constants';
 
 import { LANGUAGES_ORDER_BY } from './languages.constants';
-import { ILanguage, Language } from './languages.entity';
+import { Language } from './languages.entity';
+import { ILanguage } from './languages.types';
 
 export class LanguagesService {
   static getAllLanguages = async (
