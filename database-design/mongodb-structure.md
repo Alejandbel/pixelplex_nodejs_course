@@ -48,6 +48,7 @@ Collections
 4. Answers:
 {
     userId: ObjectId,
+    taskId: ObjectId,
     target: 'to_native'|'to_foreign',
     foreignWord: {
         languageId: ObjectId,
