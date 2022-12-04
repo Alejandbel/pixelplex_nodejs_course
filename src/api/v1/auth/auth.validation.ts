@@ -1,5 +1,7 @@
 import { checkSchema } from 'express-validator';
 
+import { NAME_VALIDATION_CONSTANTS, PASSWORD_VALIDATION_CONSTANTS } from './auth.constants';
+
 export class AuthValidation {
   static signUp = checkSchema({
     name: {
@@ -10,8 +12,8 @@ export class AuthValidation {
       trim: true,
       isLength: {
         options: {
-          min: 5,
-          max: 256,
+          min: NAME_VALIDATION_CONSTANTS.MIN_LENGTH,
+          max: NAME_VALIDATION_CONSTANTS.MAX_LENGTH,
         },
       },
     },
@@ -29,11 +31,11 @@ export class AuthValidation {
       in: ['body'],
       isStrongPassword: {
         options: {
-          minLength: 8,
-          minLowercase: 1,
-          minUppercase: 1,
-          minNumbers: 1,
-          minSymbols: 1,
+          minLength: PASSWORD_VALIDATION_CONSTANTS.MIN_LENGTH,
+          minLowercase: PASSWORD_VALIDATION_CONSTANTS.MIN_LOWERCASE_CHARACTERS,
+          minUppercase: PASSWORD_VALIDATION_CONSTANTS.MIN_UPPERCASE_CHARACTERS,
+          minNumbers: PASSWORD_VALIDATION_CONSTANTS.MIN_NUMBERS,
+          minSymbols: PASSWORD_VALIDATION_CONSTANTS.MIN_SYMBOLS,
         },
       },
     },
