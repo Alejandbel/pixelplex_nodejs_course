@@ -5,5 +5,3 @@ export type SignUpResponseDTO = TokenResponse;
 
 export type LoginResponseDTO = TokenResponse;
 export type LoginBodyDTO = { email: string; password: string };
-
-export type LogoutResponseDTO = { message: string };
