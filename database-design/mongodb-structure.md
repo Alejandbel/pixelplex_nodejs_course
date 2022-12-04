@@ -8,31 +8,8 @@ Collections
     name: string,
     email: string,
     password: string,
-    nativeLanguageId: number,
+    nativeLanguageId: ObjectId,
     role: 'admin'|'user'
-    cards: [
-        {
-            foreignWord: {
-                languageId: ObjectId,
-                word: string,
-            },
-            nativeWord: {
-                languageId: ObjectId,
-                word: string, 
-            },
-            tasks: [
-                {
-                    target: 'to_native'|'to_foreign',
-                    isCompleted: boolean,
-                    createdAt: date,
-                    updatedAt: date,
-                }
-            ]
-            createdAt: date,
-            updatedAt: date,
-            
-        }
-    ],
     createdAt: date,
     updatedAt: date,
 }
@@ -45,10 +22,32 @@ Collections
     updatedAt: date,
 }
 
-3. Answers:
+3. Cards:
 {
-    id: number,
-    userId: number,
+    userId: ObjectId,
+    foreignWord: {
+        languageId: ObjectId,
+        word: string,
+    },
+    nativeWord: {
+        languageId: ObjectId,
+        word: string, 
+    },
+    tasks: [
+        {
+            target: 'to_native'|'to_foreign',
+            isCompleted: boolean,
+            createdAt: date,
+            updatedAt: date,
+        }
+    ]
+    createdAt: date,
+    updatedAt: date,
+}
+
+4. Answers:
+{
+    userId: ObjectId,
     target: 'to_native'|'to_foreign',
     foreignWord: {
         languageId: ObjectId,
