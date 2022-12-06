@@ -8,7 +8,8 @@ module.exports = {
           ["@errors", "./src/errors"],
           ["@interfaces", "./src/interfaces"],
           ["@constants", "./src/constants"],
-          ["@types", "./src/types"]
+          ["@types", "./src/types"],
+          ["@languages", "./src/api/v1/languages"],
         ],
         'extensions': ['.ts', '.tsx'],
       },
