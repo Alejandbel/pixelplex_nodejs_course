@@ -6,8 +6,11 @@
     "baseUrl": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "removeComments": true,
     "skipLibCheck": true,
     "paths": {
