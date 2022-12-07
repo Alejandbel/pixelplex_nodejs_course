@@ -10,6 +10,8 @@ module.exports = {
           ["@constants", "./src/constants"],
           ["@types", "./src/types"],
           ["@languages", "./src/api/v1/languages"],
+          ["@users", "./src/api/v1/users"],
+          ["@config", "./src/config.ts"],
         ],
         'extensions': ['.ts', '.tsx'],
       },

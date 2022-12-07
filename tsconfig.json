@@ -20,6 +20,8 @@
       "@constants": ["constants"],
       "@types": ["types"],
       "@languages": ["api/v1/languages"],
+      "@users": ["api/v1/users"],
+      "@config": ["config.ts"],
     }
   },
   "include": ["./src/**/*.ts"],
