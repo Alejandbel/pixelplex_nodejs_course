@@ -22,6 +22,7 @@
       "@languages": ["api/v1/languages"],
       "@users": ["api/v1/users"],
       "@words": ["api/v1/words"],
+      "@cards": ["api/v1/cards"],
       "@config": ["config.ts"],
     }
   },

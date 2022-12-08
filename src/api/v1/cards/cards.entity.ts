@@ -1,15 +1,41 @@
-let cardsCount = 0;
+import {
+  BaseEntity,
+  CreateDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-export class Card {
+import { User } from '@users';
+import { Word } from '@words';
+
+@Entity('card')
+export class Card extends BaseEntity {
+  @Index()
+  @PrimaryGeneratedColumn()
   id: number;
 
-  constructor(
-    public readonly nativeLanguageId: number,
-    public readonly foreignLanguageId: number,
-    public readonly nativeWord: string,
-    public readonly foreignWord: string
-  ) {
-    cardsCount += 1;
-    this.id = cardsCount;
-  }
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+  })
+  user: User;
+
+  @ManyToOne(() => Word, {
+    onDelete: 'CASCADE',
+  })
+  foreignWord: Word;
+
+  @ManyToOne(() => Word, {
+    onDelete: 'CASCADE',
+  })
+  nativeWord: Word;
+
+  @Index()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
