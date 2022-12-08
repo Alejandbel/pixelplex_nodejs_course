@@ -7,6 +7,7 @@ import {
   BaseEntity,
   ManyToOne,
   Index,
+  Unique,
 } from 'typeorm';
 
 import { Language } from '@languages';
@@ -14,6 +15,7 @@ import { Language } from '@languages';
 import { USER_ROLES } from './users.constants';
 
 @Entity('user')
+@Unique(['normalizedEmail'])
 export class User extends BaseEntity {
   @Index()
   @PrimaryGeneratedColumn()
