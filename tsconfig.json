@@ -21,6 +21,7 @@
       "@types": ["types"],
       "@languages": ["api/v1/languages"],
       "@users": ["api/v1/users"],
+      "@words": ["api/v1/words"],
       "@config": ["config.ts"],
     }
   },
@@ -29,5 +30,4 @@
   "ts-node": {
     "files": true
   },
-
 }

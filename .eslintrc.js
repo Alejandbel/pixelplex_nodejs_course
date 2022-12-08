@@ -12,6 +12,7 @@ module.exports = {
           ["@languages", "./src/api/v1/languages"],
           ["@users", "./src/api/v1/users"],
           ["@config", "./src/config.ts"],
+          ["@words", "./src/api/v1/words"],
         ],
         'extensions': ['.ts', '.tsx'],
       },
