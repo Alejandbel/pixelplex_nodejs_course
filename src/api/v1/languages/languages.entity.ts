@@ -1,5 +1,13 @@
-import { CreateDateColumn, UpdateDateColumn, Unique, Index } from 'typeorm';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('language')
 @Unique(['code'])
