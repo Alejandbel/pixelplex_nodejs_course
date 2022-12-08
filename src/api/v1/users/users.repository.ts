@@ -1,5 +1,5 @@
 import { AppError } from '@errors';
-import { LanguagesRepository } from '@languages';
+import { Language } from '@languages';
 
 import { USER_ROLES } from './users.constants';
 import { User } from './users.entity';
@@ -47,9 +47,9 @@ export class UsersRepository {
     return user;
   };
 
-  static changeLanguageById = async (id: number, languageId: number): Promise<User> => {
+  static changeLanguageById = async (id: number, language: Language): Promise<User> => {
     const user = await this.findById(id);
-    user.language = await LanguagesRepository.findById(languageId);
+    user.language = language;
     return User.save(user);
   };
 }
