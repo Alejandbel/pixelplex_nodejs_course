@@ -43,7 +43,7 @@ export class User extends BaseEntity {
   @ManyToOne(() => Language, {
     onDelete: 'SET NULL',
   })
-  languages: Language[];
+  language: Language;
 
   @CreateDateColumn()
   createdAt: Date;
