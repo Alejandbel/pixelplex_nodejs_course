@@ -56,7 +56,7 @@ export class LanguagesRepository {
       };
     } else if (orderBy === LANGUAGES_ORDER_BY.NAME) {
       findOptions.order = {
-        createdAt: sort,
+        title: sort,
       };
     }
 
