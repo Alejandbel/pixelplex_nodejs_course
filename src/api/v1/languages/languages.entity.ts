@@ -16,7 +16,7 @@ export class Language extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // TODO: - create migration "CREATE INDEX "LOWERCASE_TITLE" ON "language" (lower("title"))"
+  @Index()
   @Column()
   title: string;
 
