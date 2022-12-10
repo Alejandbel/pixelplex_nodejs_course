@@ -1,16 +1,53 @@
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+
+import { Card } from '@cards';
+import { User } from '@users';
+
 import { TARGET_CONSTANTS } from './tasks.constants';
 
-let tasksCount = 0;
-
-export class Task {
+@Entity('task')
+export class Task extends BaseEntity {
+  @Index()
+  @PrimaryGeneratedColumn()
   id: number;
 
-  constructor(
-    public readonly word: string,
-    public readonly foreignLanguageId: number,
-    public readonly target: TARGET_CONSTANTS
-  ) {
-    tasksCount += 1;
-    this.id = tasksCount;
-  }
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column()
+  userId: number;
+
+  @ManyToOne(() => Card, {
+    onDelete: 'CASCADE',
+  })
+  card: Card;
+
+  @Column({
+    type: 'enum',
+    enum: TARGET_CONSTANTS,
+  })
+  target: TARGET_CONSTANTS;
+
+  @Column()
+  isCompleted: boolean;
+
+  @Index()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

@@ -23,6 +23,7 @@
       "@users": ["api/v1/users"],
       "@words": ["api/v1/words"],
       "@cards": ["api/v1/cards"],
+      "@tasks": ["api/v1/tasks"],
       "@config": ["config.ts"],
     }
   },

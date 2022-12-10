@@ -13,7 +13,8 @@ module.exports = {
           ["@users", "./src/api/v1/users"],
           ["@config", "./src/config.ts"],
           ["@words", "./src/api/v1/words"],
-          ["@cards", "./src/cards/v1/words"],
+          ["@cards", "./src/api/v1/cards"],
+          ["@tasks", "./src/api/v1/tasks"]
         ],
         'extensions': ['.ts', '.tsx'],
       },
