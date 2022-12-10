@@ -24,6 +24,7 @@
       "@words": ["api/v1/words"],
       "@cards": ["api/v1/cards"],
       "@tasks": ["api/v1/tasks"],
+      "@answers": ["api/v1/answers"],
       "@config": ["config.ts"],
     }
   },

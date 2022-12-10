@@ -14,7 +14,8 @@ module.exports = {
           ["@config", "./src/config.ts"],
           ["@words", "./src/api/v1/words"],
           ["@cards", "./src/api/v1/cards"],
-          ["@tasks", "./src/api/v1/tasks"]
+          ["@tasks", "./src/api/v1/tasks"],
+          ["@answers", "./src/api/v1/answers"],
         ],
         'extensions': ['.ts', '.tsx'],
       },
