@@ -1,10 +1,9 @@
-import { FindManyOptions, ILike } from 'typeorm';
-
 import { SORT_TYPES } from '@constants';
 import { AppError } from '@errors';
 
 import { LANGUAGES_ORDER_BY } from './languages.constants';
 import { Language } from './languages.entity';
+import { FindOptionsBuilder } from './languages.repository.utils';
 
 export class LanguagesRepository {
   static create = async (title: string, code: string): Promise<Language> => {
@@ -41,30 +40,12 @@ export class LanguagesRepository {
     sort: SORT_TYPES | undefined,
     search: string | undefined
   ): Promise<Language[]> => {
-    const findOptions: FindManyOptions<Language> = {
-      skip: offset,
-      take: limit,
-    };
-
-    if (!sort) {
-      sort = SORT_TYPES.ASC;
-    }
-
-    if (orderBy === LANGUAGES_ORDER_BY.DATE) {
-      findOptions.order = {
-        createdAt: sort,
-      };
-    } else if (orderBy === LANGUAGES_ORDER_BY.NAME) {
-      findOptions.order = {
-        title: sort,
-      };
-    }
-
-    if (search) {
-      findOptions.where = {
-        title: ILike(`%${search}%`),
-      };
-    }
+    const findOptions = new FindOptionsBuilder()
+      .applyLimitAndOffset(limit, offset)
+      .applySort(sort)
+      .applyOrderBy(orderBy)
+      .applySearch(search)
+      .getFindOptions();
 
     return Language.find(findOptions);
   };
