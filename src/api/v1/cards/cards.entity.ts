@@ -1,8 +1,10 @@
 import {
   BaseEntity,
+  Column,
   CreateDateColumn,
   Entity,
   Index,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -20,7 +22,11 @@ export class Card extends BaseEntity {
   @ManyToOne(() => User, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'userId' })
   user: User;
+
+  @Column()
+  userId: number;
 
   @ManyToOne(() => Word, {
     onDelete: 'CASCADE',
