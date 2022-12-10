@@ -27,6 +27,7 @@ export class Task extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: User;
 
+  @Index()
   @Column()
   userId: number;
 
