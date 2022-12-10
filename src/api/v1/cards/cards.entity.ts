@@ -25,6 +25,7 @@ export class Card extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: User;
 
+  @Index()
   @Column()
   userId: number;
 
