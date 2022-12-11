@@ -14,8 +14,7 @@ export class CardsRepository {
   };
 
   static update = async (id: number, props: Partial<Card>): Promise<Card> => {
-    const currentCard = await this.findById(id);
-    await Card.update({ id }, { ...currentCard, ...props });
+    await Card.update({ id }, props);
     return this.findById(id);
   };
 

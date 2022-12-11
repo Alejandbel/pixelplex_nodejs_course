@@ -15,8 +15,7 @@ export class LanguagesRepository {
   };
 
   static update = async (id: number, props: Partial<Language>): Promise<Language | null> => {
-    const currentLanguage = await this.findById(id);
-    await Language.update({ id }, { ...currentLanguage, ...props });
+    await Language.update({ id }, props);
     return this.findById(id);
   };
 

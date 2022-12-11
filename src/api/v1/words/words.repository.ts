@@ -26,8 +26,7 @@ export class WordsRepository {
   };
 
   static update = async (id: number, props: Partial<Word>): Promise<Word> => {
-    const currentWord = await this.findById(id);
-    await Word.update({ id }, { ...currentWord, ...props });
+    await Word.update({ id }, props);
     return this.findById(id);
   };
 

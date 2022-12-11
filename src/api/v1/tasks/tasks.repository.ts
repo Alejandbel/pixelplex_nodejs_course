@@ -14,8 +14,7 @@ export class TasksRepository {
   };
 
   static update = async (id: number, props: Partial<Task>): Promise<Task> => {
-    const currentTask = await this.findById(id);
-    await Task.update({ id }, { ...currentTask, ...props });
+    await Task.update({ id }, props);
     return this.findById(id);
   };
 
