@@ -1,22 +1,10 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
+import { CommonEntity } from '@entities';
 import { Language } from '@languages';
 
 @Entity('word')
-export class Word extends BaseEntity {
-  @Index()
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Word extends CommonEntity {
   @ManyToOne(() => Language, {
     onDelete: 'CASCADE',
   })
@@ -24,10 +12,4 @@ export class Word extends BaseEntity {
 
   @Column()
   word: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

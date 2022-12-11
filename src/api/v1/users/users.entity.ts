@@ -1,26 +1,13 @@
-import {
-  CreateDateColumn,
-  UpdateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BaseEntity,
-  ManyToOne,
-  Index,
-  Unique,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, Index, Unique } from 'typeorm';
 
+import { CommonEntity } from '@entities';
 import { Language } from '@languages';
 
 import { USER_ROLES } from './users.constants';
 
 @Entity('user')
 @Unique(['normalizedEmail'])
-export class User extends BaseEntity {
-  @Index()
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends CommonEntity {
   @Column()
   name: string;
 
@@ -31,14 +18,13 @@ export class User extends BaseEntity {
   email: string;
 
   @Index()
-  @Column({
-    unique: true,
-  })
+  @Column()
   normalizedEmail: string;
 
   @Column({
     type: 'enum',
     enum: USER_ROLES,
+    default: USER_ROLES.USER,
   })
   role: string;
 
@@ -46,10 +32,4 @@ export class User extends BaseEntity {
     onDelete: 'SET NULL',
   })
   language: Language;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

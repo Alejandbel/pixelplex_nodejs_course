@@ -1,24 +1,11 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 
+import { CommonEntity } from '@entities';
 import { User } from '@users';
 import { Word } from '@words';
 
 @Entity('card')
-export class Card extends BaseEntity {
-  @Index()
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Card extends CommonEntity {
   @ManyToOne(() => User, {
     onDelete: 'CASCADE',
   })
@@ -38,11 +25,4 @@ export class Card extends BaseEntity {
     onDelete: 'CASCADE',
   })
   nativeWord: Word;
-
-  @Index()
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

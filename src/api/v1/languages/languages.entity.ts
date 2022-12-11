@@ -1,32 +1,14 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-  Unique,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, Index, Unique } from 'typeorm';
+
+import { CommonEntity } from '@entities';
 
 @Entity('language')
 @Unique(['code'])
-export class Language extends BaseEntity {
-  @Index()
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Language extends CommonEntity {
   @Index()
   @Column()
   title: string;
 
   @Column()
   code: string;
-
-  @Index()
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

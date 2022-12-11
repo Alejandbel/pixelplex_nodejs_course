@@ -1,26 +1,13 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Card } from '@cards';
+import { CommonEntity } from '@entities';
 import { User } from '@users';
 
 import { TARGET_CONSTANTS } from './tasks.constants';
 
 @Entity('task')
-export class Task extends BaseEntity {
-  @Index()
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Task extends CommonEntity {
   @ManyToOne(() => User, {
     onDelete: 'CASCADE',
   })
@@ -44,11 +31,4 @@ export class Task extends BaseEntity {
 
   @Column()
   isCompleted: boolean;
-
-  @Index()
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
