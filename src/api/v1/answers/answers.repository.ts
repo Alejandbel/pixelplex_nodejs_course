@@ -12,12 +12,16 @@ export class AnswersRepository {
   };
 
   static getSuccess = async (userId: number, dateBegin: Date, dateEnd: Date, language: Language): Promise<number> => {
+    const basicCondition = {
+      userId: Equal(userId),
+      createdAt: Between(dateBegin, dateEnd),
+      isSuccess: true,
+    };
+
     return Answer.count({
       where: [
         {
-          userId: Equal(userId),
-          createdAt: Between(dateBegin, dateEnd),
-          isSuccess: true,
+          ...basicCondition,
           task: {
             target: TARGET_CONSTANTS.TO_NATIVE,
             card: {
@@ -28,9 +32,7 @@ export class AnswersRepository {
           },
         },
         {
-          userId: Equal(userId),
-          createdAt: Between(dateBegin, dateEnd),
-          isSuccess: true,
+          ...basicCondition,
           task: {
             target: TARGET_CONSTANTS.TO_FOREIGN,
             card: {
@@ -45,12 +47,16 @@ export class AnswersRepository {
   };
 
   static getFailed = async (userId: number, dateBegin: Date, dateEnd: Date, language: Language): Promise<number> => {
+    const basicCondition = {
+      userId: Equal(userId),
+      createdAt: Between(dateBegin, dateEnd),
+      isSuccess: false,
+    };
+
     return Answer.count({
       where: [
         {
-          userId: Equal(userId),
-          createdAt: Between(dateBegin, dateEnd),
-          isSuccess: false,
+          ...basicCondition,
           task: {
             target: TARGET_CONSTANTS.TO_NATIVE,
             card: {
@@ -61,9 +67,7 @@ export class AnswersRepository {
           },
         },
         {
-          userId: Equal(userId),
-          createdAt: Between(dateBegin, dateEnd),
-          isSuccess: false,
+          ...basicCondition,
           task: {
             target: TARGET_CONSTANTS.TO_FOREIGN,
             card: {
