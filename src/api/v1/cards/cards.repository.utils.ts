@@ -35,22 +35,26 @@ export class FindOptionsBuilder {
       return this;
     }
 
-    if (orderBy === CARDS_ORDER_BY.NATIVE) {
-      this.findOptions.order = {
-        nativeWord: {
-          word: this.sort,
-        },
-      };
-    } else if (orderBy === CARDS_ORDER_BY.FOREIGN) {
-      this.findOptions.order = {
-        foreignWord: {
-          word: this.sort,
-        },
-      };
-    } else if (orderBy === CARDS_ORDER_BY.DATE) {
-      this.findOptions.order = {
-        createdAt: this.sort,
-      };
+    switch (orderBy) {
+      case CARDS_ORDER_BY.NATIVE:
+        this.findOptions.order = {
+          nativeWord: {
+            word: this.sort,
+          },
+        };
+        break;
+      case CARDS_ORDER_BY.FOREIGN:
+        this.findOptions.order = {
+          foreignWord: {
+            word: this.sort,
+          },
+        };
+        break;
+      case CARDS_ORDER_BY.DATE:
+        this.findOptions.order = {
+          createdAt: this.sort,
+        };
+        break;
     }
 
     return this;

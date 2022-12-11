@@ -26,14 +26,17 @@ export class FindOptionsBuilder {
       return this;
     }
 
-    if (orderBy === LANGUAGES_ORDER_BY.DATE) {
-      this.findOptions.order = {
-        createdAt: this.sort,
-      };
-    } else if (orderBy === LANGUAGES_ORDER_BY.NAME) {
-      this.findOptions.order = {
-        title: this.sort,
-      };
+    switch (orderBy) {
+      case LANGUAGES_ORDER_BY.DATE:
+        this.findOptions.order = {
+          createdAt: this.sort,
+        };
+        break;
+      case LANGUAGES_ORDER_BY.NAME:
+        this.findOptions.order = {
+          title: this.sort,
+        };
+        break;
     }
 
     return this;
