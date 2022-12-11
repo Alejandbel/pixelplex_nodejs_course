@@ -21,7 +21,7 @@ export class FindOptionsBuilder {
     return this;
   };
 
-  applySort = (sort: SORT_TYPES | undefined): FindOptionsBuilder => {
+  applySortByDate = (sort: SORT_TYPES | undefined): FindOptionsBuilder => {
     if (!sort) {
       return this;
     }
@@ -33,7 +33,7 @@ export class FindOptionsBuilder {
     return this;
   };
 
-  applySearchAndUserId = (search: string | undefined, userId: number): FindOptionsBuilder => {
+  applySearchAndUserIdOnUncompletedTasks = (search: string | undefined, userId: number): FindOptionsBuilder => {
     if (!search) {
       this.findOptions.where = [
         {

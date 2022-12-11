@@ -42,8 +42,8 @@ export class TasksRepository {
   ): Promise<Task[]> => {
     const findOptions = new FindOptionsBuilder()
       .applyLimitAndOffset(limit, offset)
-      .applySort(sort)
-      .applySearchAndUserId(searchWord, userId)
+      .applySortByDate(sort)
+      .applySearchAndUserIdOnUncompletedTasks(searchWord, userId)
       .applyRelations()
       .getFindOptions();
 
