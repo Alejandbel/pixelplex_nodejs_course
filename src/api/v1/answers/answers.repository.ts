@@ -1,8 +1,7 @@
 import { Between, Equal } from 'typeorm';
 
 import { Language } from '@languages';
-
-import { TARGET_CONSTANTS } from '../tasks/tasks.constants';
+import { TARGET_CONSTANTS } from '@tasks';
 
 import { Answer } from './answers.entity';
 
@@ -23,7 +22,7 @@ export class AnswersRepository {
             target: TARGET_CONSTANTS.TO_NATIVE,
             card: {
               foreignWord: {
-                language: Equal(Language),
+                language: Equal(language),
               },
             },
           },
