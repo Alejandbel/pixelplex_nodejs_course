@@ -9,6 +9,7 @@ module.exports = {
           ["@interfaces", "./src/interfaces"],
           ["@constants", "./src/constants"],
           ["@types", "./src/types"],
+          ["@entities", "./src/entities"],
           ["@languages", "./src/api/v1/languages"],
           ["@users", "./src/api/v1/users"],
           ["@config", "./src/config.ts"],

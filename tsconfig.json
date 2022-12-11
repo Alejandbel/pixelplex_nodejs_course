@@ -18,6 +18,7 @@
       "@errors": ["errors"],
       "@interfaces": ["interfaces"],
       "@constants": ["constants"],
+      "@entities": ["entities"],
       "@types": ["types"],
       "@languages": ["api/v1/languages"],
       "@users": ["api/v1/users"],
