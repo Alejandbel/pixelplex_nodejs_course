@@ -9,7 +9,7 @@ export class DATASOURCE_CONFIG {
   static readonly DATABASE = process.env.POSTGRES_DB ?? 'example_db';
   static readonly USERNAME = process.env.DB_USERNAME ?? 'postgres';
   static readonly TYPE = 'postgres';
-  static readonly LOGGING = true;
+  static readonly LOGGING = false;
   static readonly SYNCHRONIZE = true;
 }
 
