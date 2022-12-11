@@ -1,20 +1,17 @@
 import { AppError } from '@errors';
 import { Language } from '@languages';
 
-import { USER_ROLES } from './users.constants';
 import { User } from './users.entity';
 
 export class UsersRepository {
   static create = async (email: string, normalizedEmail: string, password: string, name: string): Promise<User> => {
-    let user = User.create({
+    const user = User.create({
       email,
       normalizedEmail,
       name,
       password,
-      role: USER_ROLES.USER,
     });
-    user = await User.save(user);
-    return user;
+    return User.save(user);
   };
 
   static findByEmail = async (email: string): Promise<User> => {
