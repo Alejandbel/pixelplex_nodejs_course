@@ -1,5 +1,5 @@
 import { SORT_TYPES } from '@constants';
-import { AppError } from '@errors';
+import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 
 import { LANGUAGES_ORDER_BY } from './languages.constants';
 import { Language } from './languages.entity';
@@ -22,9 +22,11 @@ export class LanguagesRepository {
 
   static findById = async (id: number): Promise<Language> => {
     const language = await Language.findOneBy({ id });
+
     if (!language) {
-      throw new AppError('Language does not exists', 404);
+      throw new RepositoryError('Language does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
     }
+
     return language;
   };
 

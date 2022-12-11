@@ -1,4 +1,4 @@
-import { AppError } from '@errors';
+import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 import { LanguagesRepository } from '@languages';
 
 import { Word } from './words.entity';
@@ -19,7 +19,7 @@ export class WordsRepository {
     const word = await Word.findOneBy({ id });
 
     if (!word) {
-      throw new AppError('Word does not exists', 404);
+      throw new RepositoryError('Word does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
     }
 
     return word;

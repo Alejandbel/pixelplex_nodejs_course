@@ -1,5 +1,5 @@
 import { SORT_TYPES } from '@constants';
-import { AppError } from '@errors';
+import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 import { Language } from '@languages';
 import { Word } from '@words';
 
@@ -23,7 +23,7 @@ export class CardsRepository {
     const card = await Card.findOneBy({ id });
 
     if (!card) {
-      throw new AppError('Card does not exists', 404);
+      throw new RepositoryError('Card does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
     }
 
     return card;

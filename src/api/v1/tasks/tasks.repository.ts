@@ -1,6 +1,6 @@
 import { Card } from '@cards';
 import { SORT_TYPES } from '@constants';
-import { AppError } from '@errors';
+import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 
 import { TARGET_CONSTANTS } from './tasks.constants';
 import { Task } from './tasks.entity';
@@ -23,7 +23,7 @@ export class TasksRepository {
     const task = await Task.findOneBy({ id });
 
     if (!task) {
-      throw new AppError('Task does not exists', 404);
+      throw new RepositoryError('Task does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
     }
 
     return task;
