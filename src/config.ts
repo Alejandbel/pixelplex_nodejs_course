@@ -16,3 +16,5 @@ export class DATASOURCE_CONFIG {
 export class APPLICATION_CONFIG {
   static readonly PORT = Number(process.env.APPLICATION_PORT) ?? 8000;
 }
+
+export const JWT_SECRET = process.env.JWT_SECRET ?? 'SECRET_TOKEN';
