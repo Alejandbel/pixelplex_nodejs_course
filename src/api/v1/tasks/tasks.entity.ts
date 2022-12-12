@@ -1,16 +1,34 @@
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+
+import { Card } from '@cards';
+import { CommonEntity } from '@entities';
+import { User } from '@users';
+
 import { TARGET_CONSTANTS } from './tasks.constants';
 
-let tasksCount = 0;
+@Entity('task')
+export class Task extends CommonEntity {
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
-export class Task {
-  id: number;
+  @Index()
+  @Column()
+  userId: number;
 
-  constructor(
-    public readonly word: string,
-    public readonly foreignLanguageId: number,
-    public readonly target: TARGET_CONSTANTS
-  ) {
-    tasksCount += 1;
-    this.id = tasksCount;
-  }
+  @ManyToOne(() => Card, {
+    onDelete: 'CASCADE',
+  })
+  card: Card;
+
+  @Column({
+    type: 'enum',
+    enum: TARGET_CONSTANTS,
+  })
+  target: TARGET_CONSTANTS;
+
+  @Column()
+  isCompleted: boolean;
 }

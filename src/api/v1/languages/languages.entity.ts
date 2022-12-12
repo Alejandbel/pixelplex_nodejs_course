@@ -1,10 +1,14 @@
-let languagesCount = 0;
+import { Column, Entity, Index, Unique } from 'typeorm';
 
-export class Language {
-  id: number;
+import { CommonEntity } from '@entities';
 
-  constructor(public readonly title: string, public readonly code: string) {
-    languagesCount += 1;
-    this.id = languagesCount;
-  }
+@Entity('language')
+@Unique(['code'])
+export class Language extends CommonEntity {
+  @Index()
+  @Column()
+  title: string;
+
+  @Column()
+  code: string;
 }

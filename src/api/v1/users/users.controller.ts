@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 
 import { TypedRequestBody } from '@interfaces';
 
-import { UsersRepository } from './users.repository';
+import { UsersService } from './users.service';
 import { ChangeLanguageBodyDTO, ChangeLanguageResponseDTO } from './users.types';
 
 export class UsersController {
@@ -13,7 +13,7 @@ export class UsersController {
   ): Promise<void> => {
     try {
       const { languageId } = req.body;
-      await UsersRepository.changeLanguage(languageId);
+      await UsersService.changeLanguage(languageId);
       const message = 'Language changed successfully';
       res.status(200).json({ message });
     } catch (error) {

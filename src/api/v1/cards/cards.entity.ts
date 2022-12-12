@@ -1,15 +1,28 @@
-let cardsCount = 0;
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 
-export class Card {
-  id: number;
+import { CommonEntity } from '@entities';
+import { User } from '@users';
+import { Word } from '@words';
 
-  constructor(
-    public readonly nativeLanguageId: number,
-    public readonly foreignLanguageId: number,
-    public readonly nativeWord: string,
-    public readonly foreignWord: string
-  ) {
-    cardsCount += 1;
-    this.id = cardsCount;
-  }
+@Entity('card')
+export class Card extends CommonEntity {
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Index()
+  @Column()
+  userId: number;
+
+  @ManyToOne(() => Word, {
+    onDelete: 'CASCADE',
+  })
+  foreignWord: Word;
+
+  @ManyToOne(() => Word, {
+    onDelete: 'CASCADE',
+  })
+  nativeWord: Word;
 }

@@ -6,8 +6,11 @@
     "baseUrl": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "removeComments": true,
     "skipLibCheck": true,
     "paths": {
@@ -15,7 +18,15 @@
       "@errors": ["errors"],
       "@interfaces": ["interfaces"],
       "@constants": ["constants"],
+      "@entities": ["entities"],
       "@types": ["types"],
+      "@languages": ["api/v1/languages"],
+      "@users": ["api/v1/users"],
+      "@words": ["api/v1/words"],
+      "@cards": ["api/v1/cards"],
+      "@tasks": ["api/v1/tasks"],
+      "@answers": ["api/v1/answers"],
+      "@config": ["config.ts"],
     }
   },
   "include": ["./src/**/*.ts"],
@@ -23,5 +34,4 @@
   "ts-node": {
     "files": true
   },
-
 }
