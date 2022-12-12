@@ -15,10 +15,10 @@ export class CardsRepository {
 
   static update = async (id: number, props: Partial<Card>): Promise<Card> => {
     await Card.update({ id }, props);
-    return this.findById(id);
+    return this.findByIdOrFail(id);
   };
 
-  static findById = async (id: number): Promise<Card> => {
+  static findByIdOrFail = async (id: number): Promise<Card> => {
     const card = await Card.findOneBy({ id });
 
     if (!card) {
@@ -29,7 +29,7 @@ export class CardsRepository {
   };
 
   static delete = async (id: number): Promise<void> => {
-    await this.findById(id);
+    await this.findByIdOrFail(id);
     await Card.delete({ id });
   };
 

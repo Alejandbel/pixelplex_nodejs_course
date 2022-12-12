@@ -34,7 +34,7 @@ export class UsersRepository {
     return user;
   };
 
-  static findById = async (id: number): Promise<User> => {
+  static findByIdOrFail = async (id: number): Promise<User> => {
     const user = await User.findOneBy({ id });
 
     if (!user) {
@@ -45,7 +45,7 @@ export class UsersRepository {
   };
 
   static changeLanguageById = async (id: number, language: Language): Promise<User> => {
-    const user = await this.findById(id);
+    const user = await this.findByIdOrFail(id);
     user.language = language;
     return User.save(user);
   };

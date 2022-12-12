@@ -16,10 +16,10 @@ export class LanguagesRepository {
 
   static update = async (id: number, props: Partial<Language>): Promise<Language | null> => {
     await Language.update({ id }, props);
-    return this.findById(id);
+    return this.findByIdOrFail(id);
   };
 
-  static findById = async (id: number): Promise<Language> => {
+  static findByIdOrFail = async (id: number): Promise<Language> => {
     const language = await Language.findOneBy({ id });
 
     if (!language) {
@@ -30,7 +30,7 @@ export class LanguagesRepository {
   };
 
   static delete = async (id: number): Promise<void> => {
-    await this.findById(id);
+    await this.findByIdOrFail(id);
     await Language.delete({ id });
   };
 

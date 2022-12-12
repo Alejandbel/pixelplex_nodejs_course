@@ -5,7 +5,7 @@ import { Word } from './words.entity';
 
 export class WordsRepository {
   static create = async (word: string, languageId: number): Promise<Word> => {
-    const language = await LanguagesRepository.findById(languageId);
+    const language = await LanguagesRepository.findByIdOrFail(languageId);
 
     const createdWord = Word.create({
       word,
@@ -15,7 +15,7 @@ export class WordsRepository {
     return Word.save(createdWord);
   };
 
-  static findById = async (id: number): Promise<Word> => {
+  static findByIdOrFail = async (id: number): Promise<Word> => {
     const word = await Word.findOneBy({ id });
 
     if (!word) {
@@ -27,11 +27,11 @@ export class WordsRepository {
 
   static update = async (id: number, props: Partial<Word>): Promise<Word> => {
     await Word.update({ id }, props);
-    return this.findById(id);
+    return this.findByIdOrFail(id);
   };
 
   static delete = async (id: number): Promise<void> => {
-    await this.findById(id);
+    await this.findByIdOrFail(id);
     await Word.delete({ id });
   };
 }

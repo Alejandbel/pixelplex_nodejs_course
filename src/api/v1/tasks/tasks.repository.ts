@@ -15,10 +15,10 @@ export class TasksRepository {
 
   static update = async (id: number, props: Partial<Task>): Promise<Task> => {
     await Task.update({ id }, props);
-    return this.findById(id);
+    return this.findByIdOrFail(id);
   };
 
-  static findById = async (id: number): Promise<Task> => {
+  static findByIdOrFail = async (id: number): Promise<Task> => {
     const task = await Task.findOneBy({ id });
 
     if (!task) {
@@ -29,7 +29,7 @@ export class TasksRepository {
   };
 
   static delete = async (id: number): Promise<void> => {
-    await this.findById(id);
+    await this.findByIdOrFail(id);
     await Task.delete({ id });
   };
 
