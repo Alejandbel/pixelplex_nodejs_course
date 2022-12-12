@@ -26,7 +26,7 @@ export class User extends CommonEntity {
     enum: USER_ROLES,
     default: USER_ROLES.USER,
   })
-  role: string;
+  role: USER_ROLES;
 
   @ManyToOne(() => Language, {
     onDelete: 'SET NULL',
