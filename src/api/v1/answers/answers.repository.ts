@@ -11,11 +11,17 @@ export class AnswersRepository {
     return Answer.save(answer);
   };
 
-  static getSuccess = async (userId: number, dateBegin: Date, dateEnd: Date, language: Language): Promise<number> => {
+  static getStatisticByStatus = async (
+    userId: number,
+    dateBegin: Date,
+    dateEnd: Date,
+    language: Language,
+    isSuccess: boolean
+  ): Promise<number> => {
     const basicCondition = {
       userId: Equal(userId),
       createdAt: Between(dateBegin, dateEnd),
-      isSuccess: true,
+      isSuccess,
     };
 
     return Answer.count({
@@ -27,41 +33,6 @@ export class AnswersRepository {
             card: {
               foreignWord: {
                 language: Equal(language),
-              },
-            },
-          },
-        },
-        {
-          ...basicCondition,
-          task: {
-            target: TARGET_CONSTANTS.TO_FOREIGN,
-            card: {
-              nativeWord: {
-                language: Equal(language),
-              },
-            },
-          },
-        },
-      ],
-    });
-  };
-
-  static getFailed = async (userId: number, dateBegin: Date, dateEnd: Date, language: Language): Promise<number> => {
-    const basicCondition = {
-      userId: Equal(userId),
-      createdAt: Between(dateBegin, dateEnd),
-      isSuccess: false,
-    };
-
-    return Answer.count({
-      where: [
-        {
-          ...basicCondition,
-          task: {
-            target: TARGET_CONSTANTS.TO_NATIVE,
-            card: {
-              foreignWord: {
-                language: Equal(Language),
               },
             },
           },
