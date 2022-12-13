@@ -116,8 +116,6 @@ __Created by Aliaksandr Bahdanau__
   }
   ```
 
-  - `POST api/v1/auth/logout` - endpoint for logging out:
-
 ## User
 
 - For all the rest endpoint if user is not authorized:

@@ -35,8 +35,4 @@ export class AuthService {
 
     return getJwtToken(user.id, user.role, '1h');
   }
-
-  static async logout(): Promise<void> {
-    console.log('logout');
-  }
 }
