@@ -4,6 +4,7 @@ import validator from 'validator';
 import { SERVICE_ERROR_STATUS, ServiceError } from '@errors';
 import { UsersRepository } from '@users';
 
+import { EXPIRATION_TIME_CONSTANTS, HASH_CONSTANTS } from './auth.constants';
 import { getJwtToken, isNormalizedEmailUnique } from './auth.service.utils';
 
 export class AuthService {
@@ -18,10 +19,10 @@ export class AuthService {
       throw new ServiceError('Email already exists', SERVICE_ERROR_STATUS.EMAIL_CONFLICT);
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, HASH_CONSTANTS.SALT_LENGTH);
     const user = await UsersRepository.create(email, normalizedEmail, hashedPassword, name);
 
-    return getJwtToken(user.id, user.role, '1h');
+    return getJwtToken(user.id, user.role, EXPIRATION_TIME_CONSTANTS.ONE_HOUR);
   }
 
   static async login(email: string, password: string): Promise<string> {
@@ -33,6 +34,6 @@ export class AuthService {
       throw new ServiceError('Wrong password', SERVICE_ERROR_STATUS.INCORRECT_PASSWORD);
     }
 
-    return getJwtToken(user.id, user.role, '1h');
+    return getJwtToken(user.id, user.role, EXPIRATION_TIME_CONSTANTS.ONE_HOUR);
   }
 }

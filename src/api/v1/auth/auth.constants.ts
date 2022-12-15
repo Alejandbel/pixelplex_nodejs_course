@@ -10,3 +10,11 @@ export enum PASSWORD_VALIDATION_CONSTANTS {
   MIN_NUMBERS = 1,
   MIN_SYMBOLS = 1,
 }
+
+export enum EXPIRATION_TIME_CONSTANTS {
+  ONE_HOUR = '1h',
+}
+
+export enum HASH_CONSTANTS {
+  SALT_LENGTH = 12,
+}
