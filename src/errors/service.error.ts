@@ -14,6 +14,7 @@ export enum SERVICE_ERROR_STATUS {
   EMAIL_CONFLICT,
   INCORRECT_EMAIL,
   INCORRECT_PASSWORD,
+  EMAIL_NOT_FOUND,
 }
 
 export function processServiceError(error: ServiceError): AppError {
@@ -35,6 +36,10 @@ export function processServiceError(error: ServiceError): AppError {
       message = 'Wrong password';
       statusCode = 401;
       break;
+    }
+    case SERVICE_ERROR_STATUS.EMAIL_NOT_FOUND: {
+      message = 'User with this email does not exists';
+      statusCode = 404;
     }
   }
   return new AppError(message, statusCode);

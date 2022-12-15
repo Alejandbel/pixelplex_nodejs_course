@@ -28,6 +28,10 @@ export class AuthService {
   static async login(email: string, password: string): Promise<string> {
     const user = await UsersRepository.findByEmail(email);
 
+    if (!user) {
+      throw new ServiceError(SERVICE_ERROR_STATUS.EMAIL_NOT_FOUND);
+    }
+
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
