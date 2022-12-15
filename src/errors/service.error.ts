@@ -1,8 +1,8 @@
 import { AppError } from './app.error';
 
 export class ServiceError extends Error {
-  constructor(message: string, public readonly status: SERVICE_ERROR_STATUS) {
-    super(message);
+  constructor(public readonly status: SERVICE_ERROR_STATUS) {
+    super();
   }
 }
 
@@ -17,18 +17,22 @@ export enum SERVICE_ERROR_STATUS {
 }
 
 export function processServiceError(error: ServiceError): AppError {
-  const { message, status } = error;
+  const { status } = error;
   let statusCode: number;
+  let message: string;
   switch (status) {
     case SERVICE_ERROR_STATUS.EMAIL_CONFLICT: {
+      message = 'Email already exists';
       statusCode = 400;
       break;
     }
     case SERVICE_ERROR_STATUS.INCORRECT_EMAIL: {
+      message = 'Email is incorrect';
       statusCode = 400;
       break;
     }
     case SERVICE_ERROR_STATUS.INCORRECT_PASSWORD: {
+      message = 'Wrong password';
       statusCode = 401;
       break;
     }
