@@ -14,24 +14,12 @@ export class UsersRepository {
     return User.save(user);
   };
 
-  static findByEmail = async (email: string): Promise<User> => {
-    const user = await User.findOneBy({ email });
-
-    if (!user) {
-      throw new RepositoryError('User with this email does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
-    }
-
-    return user;
+  static findByEmail = async (email: string): Promise<User | null> => {
+    return User.findOneBy({ email });
   };
 
-  static findByNormalizedEmail = async (normalizedEmail: string): Promise<User> => {
-    const user = await User.findOneBy({ normalizedEmail });
-
-    if (!user) {
-      throw new RepositoryError('User with this email does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
-    }
-
-    return user;
+  static findByNormalizedEmail = async (normalizedEmail: string): Promise<User | null> => {
+    return User.findOneBy({ normalizedEmail });
   };
 
   static findByIdOrFail = async (id: number): Promise<User> => {
