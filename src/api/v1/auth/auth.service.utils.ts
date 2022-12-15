@@ -10,12 +10,11 @@ export const getJwtToken = (id: number, role: USER_ROLES, expiresIn: string): st
 export const isNormalizedEmailUnique = async (normalizedEmail: string): Promise<boolean> => {
   let isUnique = true;
 
-  try {
-    const conflict = await UsersRepository.findByNormalizedEmail(normalizedEmail);
-    if (conflict) {
-      isUnique = false;
-    }
-  } catch (err) {}
+  const conflict = await UsersRepository.findByNormalizedEmail(normalizedEmail);
+
+  if (conflict) {
+    isUnique = false;
+  }
 
   return isUnique;
 };
