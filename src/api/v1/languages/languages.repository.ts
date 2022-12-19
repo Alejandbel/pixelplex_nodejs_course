@@ -1,3 +1,5 @@
+import { ILike } from 'typeorm';
+
 import { SORT_TYPES } from '@constants';
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 
@@ -14,7 +16,7 @@ export class LanguagesRepository {
     return Language.save(language);
   };
 
-  static update = async (id: number, props: Partial<Language>): Promise<Language | null> => {
+  static update = async (id: number, props: Partial<Language>): Promise<Language> => {
     await Language.update({ id }, props);
     return this.findByIdOrFail(id);
   };
@@ -46,12 +48,22 @@ export class LanguagesRepository {
     search: string | undefined
   ): Promise<Language[]> => {
     const findOptions = new FindOptionsBuilder()
-      .applyLimitAndOffset(limit, offset)
+      .applyLimitAndOffset(offset, limit)
       .applySort(sort)
       .applyOrderBy(orderBy)
       .applySearch(search)
       .getFindOptions();
 
     return Language.find(findOptions);
+  };
+
+  static getCountByFilter = async (search: string | undefined): Promise<number> => {
+    if (!search) {
+      return Language.count();
+    }
+
+    return Language.countBy({
+      title: ILike(`%${search}%`),
+    });
   };
 }
