@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 import { TypedRequestBody } from '@interfaces';
 
@@ -29,15 +29,6 @@ export class AuthController {
       const { email, password } = req.body;
       const token = await AuthService.login(email, password);
       res.status(200).json({ token });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  static logout = async (req: Request, res: Response<void>, next: NextFunction): Promise<void> => {
-    try {
-      await AuthService.logout();
-      res.status(200).send();
     } catch (error) {
       next(error);
     }
