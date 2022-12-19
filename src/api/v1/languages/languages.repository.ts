@@ -29,6 +29,10 @@ export class LanguagesRepository {
     return language;
   };
 
+  static findByCode = async (code: string): Promise<Language | null> => {
+    return Language.findOneBy({ code });
+  };
+
   static delete = async (id: number): Promise<void> => {
     await this.findByIdOrFail(id);
     await Language.delete({ id });
