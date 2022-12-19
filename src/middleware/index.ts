@@ -4,3 +4,4 @@ export * from './not-found.middleware';
 export * from './validate-payload.middleware';
 export * from './parse-json.middleware';
 export * from './is-auth';
+export * from './is-admin';
