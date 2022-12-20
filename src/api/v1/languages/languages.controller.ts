@@ -2,6 +2,7 @@ import { NextFunction, Response } from 'express';
 
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
 
+import { pickPropsFromBody } from './languages.controller.utils';
 import { LanguagesService } from './languages.service';
 import {
   AddLanguageBodyDTO,
@@ -25,12 +26,13 @@ export class LanguagesController {
     try {
       const { limit, offset, orderBy, sort, search } = req.query;
       const languages = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
+      const total = await LanguagesService.getCountByFilter(search);
       res.status(200).json({
         items: languages,
         pagination: {
           offset,
           limit,
-          total: 10,
+          total,
         },
       });
     } catch (error) {
@@ -72,8 +74,8 @@ export class LanguagesController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params as any;
-      const props = req.body;
+      const { id } = req.params;
+      const props = pickPropsFromBody(req.body);
       const language = await LanguagesService.updateLanguage(id, props);
       res.status(200).json(language);
     } catch (error) {
