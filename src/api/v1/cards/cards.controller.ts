@@ -24,13 +24,16 @@ export class CardsController {
   ): Promise<void> => {
     try {
       const { limit, offset, orderBy, sort, search, languageId } = req.query;
-      const cards = await CardsService.getAllCards(limit, offset, orderBy, sort, search, languageId);
+      const userId = req.user.id;
+
+      const [cards, total] = await CardsService.getAllCards(limit, offset, orderBy, sort, search, languageId, userId);
+
       res.status(200).json({
         items: cards,
         pagination: {
           offset,
           limit,
-          total: 10,
+          total,
         },
       });
     } catch (error) {
@@ -45,7 +48,10 @@ export class CardsController {
   ): Promise<void> => {
     try {
       const { id } = req.params;
-      const card = await CardsService.getCard(id);
+      const userId = req.user.id;
+
+      const card = await CardsService.getCard(id, userId);
+
       res.status(200).json(card);
     } catch (error) {
       next(error);
@@ -59,7 +65,10 @@ export class CardsController {
   ): Promise<void> => {
     try {
       const { nativeLanguageId, foreignLanguageId, nativeWord, foreignWord } = req.body;
-      const card = await CardsService.addCard(nativeLanguageId, foreignLanguageId, nativeWord, foreignWord);
+      const userId = req.user.id;
+
+      const card = await CardsService.addCard(nativeLanguageId, foreignLanguageId, nativeWord, foreignWord, userId);
+
       res.status(201).json(card);
     } catch (error) {
       next(error);
@@ -74,7 +83,9 @@ export class CardsController {
     try {
       const { id } = req.params;
       const props = req.body;
-      const card = await CardsService.updateCard(id, props);
+      const userId = req.user.id;
+
+      const card = await CardsService.updateCard(id, props, userId);
       res.status(200).json(card);
     } catch (error) {
       next(error);
@@ -88,7 +99,10 @@ export class CardsController {
   ): Promise<void> => {
     try {
       const { id } = req.params;
-      await CardsService.deleteCard(id);
+      const userId = req.user.id;
+
+      await CardsService.deleteCard(id, userId);
+
       res.status(200).send();
     } catch (error) {
       next(error);
