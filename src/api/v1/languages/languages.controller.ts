@@ -25,8 +25,7 @@ export class LanguagesController {
   ): Promise<void> => {
     try {
       const { limit, offset, orderBy, sort, search } = req.query;
-      const languages = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
-      const total = await LanguagesService.getCountByFilter(search);
+      const [languages, total] = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
       res.status(200).json({
         items: languages,
         pagination: {

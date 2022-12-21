@@ -14,14 +14,10 @@ export class LanguagesService {
     orderBy: LANGUAGES_ORDER_BY | undefined,
     sort: SORT_TYPES | undefined,
     search: string | undefined
-  ): Promise<LanguageDTO[]> => {
-    const languages = await LanguagesRepository.getAllSortedAndFiltered(limit, offset, orderBy, sort, search);
+  ): Promise<[LanguageDTO[], number]> => {
+    const [languages, count] = await LanguagesRepository.getAllSortedAndFiltered(limit, offset, orderBy, sort, search);
 
-    return languages.map((language) => new LanguageDTO(language));
-  };
-
-  static getCountByFilter = async (search: string): Promise<number> => {
-    return LanguagesRepository.getCountByFilter(search);
+    return [languages.map((language) => new LanguageDTO(language)), count];
   };
 
   static getLanguage = async (languageId: number): Promise<LanguageDTO> => {

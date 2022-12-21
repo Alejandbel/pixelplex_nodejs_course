@@ -1,5 +1,3 @@
-import { ILike } from 'typeorm';
-
 import { SORT_TYPES } from '@constants';
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 
@@ -46,7 +44,7 @@ export class LanguagesRepository {
     orderBy: LANGUAGES_ORDER_BY | undefined,
     sort: SORT_TYPES | undefined,
     search: string | undefined
-  ): Promise<Language[]> => {
+  ): Promise<[Language[], number]> => {
     const findOptions = new FindOptionsBuilder()
       .applyLimitAndOffset(offset, limit)
       .applySort(sort)
@@ -54,16 +52,6 @@ export class LanguagesRepository {
       .applySearch(search)
       .getFindOptions();
 
-    return Language.find(findOptions);
-  };
-
-  static getCountByFilter = async (search: string | undefined): Promise<number> => {
-    if (!search) {
-      return Language.count();
-    }
-
-    return Language.countBy({
-      title: ILike(`%${search}%`),
-    });
+    return Language.findAndCount(findOptions);
   };
 }
