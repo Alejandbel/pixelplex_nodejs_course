@@ -19,7 +19,7 @@ export class CardsRepository {
   };
 
   static findByIdOrFail = async (id: number): Promise<Card> => {
-    const card = await Card.findOneBy({ id });
+    const card = await Card.findOne({ relations: { nativeWord: true, foreignWord: true }, where: { id } });
 
     if (!card) {
       throw new RepositoryError('Card does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
