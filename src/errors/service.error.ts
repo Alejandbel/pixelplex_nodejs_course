@@ -15,6 +15,7 @@ export enum SERVICE_ERROR_STATUS {
   INCORRECT_EMAIL,
   INCORRECT_PASSWORD,
   EMAIL_NOT_FOUND,
+  NOT_ALLOWED,
   CODE_NOT_UNIQUE,
 }
 
@@ -46,6 +47,12 @@ export function processServiceError(error: ServiceError): AppError {
     case SERVICE_ERROR_STATUS.CODE_NOT_UNIQUE: {
       message = 'Language with this code already exists';
       statusCode = 400;
+      break;
+    }
+    case SERVICE_ERROR_STATUS.NOT_ALLOWED: {
+      message = 'You are not allowed to do this';
+      statusCode = 403;
+      break;
     }
   }
   return new AppError(message, statusCode);
