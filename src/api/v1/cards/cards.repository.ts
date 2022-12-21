@@ -8,7 +8,7 @@ import { Card } from './cards.entity';
 import { FindOptionsBuilder } from './cards.repository.utils';
 
 export class CardsRepository {
-  static create = async (nativeWord: Word, foreignWord: Language, userId: number): Promise<Card> => {
+  static create = async (nativeWord: Word, foreignWord: Word, userId: number): Promise<Card> => {
     const card = Card.create({ nativeWord, foreignWord, userId });
     return Card.save(card);
   };
@@ -33,7 +33,7 @@ export class CardsRepository {
     await Card.delete({ id });
   };
 
-  static getAllSortedAndFilteredByUser = async (
+  static getAllSortedAndFilteredByUserWithCount = async (
     limit: number,
     offset: number,
     orderBy: CARDS_ORDER_BY | undefined,
@@ -41,7 +41,7 @@ export class CardsRepository {
     search: string | undefined,
     userId: number,
     language: Language
-  ): Promise<Card[]> => {
+  ): Promise<[Card[], number]> => {
     const findOptions = new FindOptionsBuilder()
       .applyLimitAndOffset(limit, offset)
       .applySort(sort)
@@ -51,6 +51,6 @@ export class CardsRepository {
       .applyRelations()
       .getFindOptions();
 
-    return Card.find(findOptions);
+    return Card.findAndCount(findOptions);
   };
 }
