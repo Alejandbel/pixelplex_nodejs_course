@@ -4,12 +4,13 @@ import { LanguagesRepository } from '@languages';
 import { Word } from './words.entity';
 
 export class WordsRepository {
-  static create = async (word: string, languageId: number): Promise<Word> => {
+  static create = async (word: string, languageId: number, userId: number): Promise<Word> => {
     const language = await LanguagesRepository.findByIdOrFail(languageId);
 
     const createdWord = Word.create({
       word,
       language,
+      userId,
     });
 
     return Word.save(createdWord);
