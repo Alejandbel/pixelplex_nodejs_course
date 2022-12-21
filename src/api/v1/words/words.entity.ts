@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { CommonEntity } from '@entities';
 import { Language } from '@languages';
@@ -8,7 +8,11 @@ export class Word extends CommonEntity {
   @ManyToOne(() => Language, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'languageId' })
   language: Language;
+
+  @Column()
+  languageId: number;
 
   @Column()
   word: string;

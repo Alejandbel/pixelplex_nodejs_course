@@ -10,8 +10,8 @@ export class CardDTO {
   constructor(card: Card) {
     const { id, nativeWord, foreignWord } = card;
     this.id = id;
-    this.nativeLanguageId = nativeWord.language.id;
-    this.foreignLanguageId = foreignWord.language.id;
+    this.nativeLanguageId = nativeWord.languageId;
+    this.foreignLanguageId = foreignWord.languageId;
     this.nativeWord = nativeWord.word;
     this.foreignWord = foreignWord.word;
   }
