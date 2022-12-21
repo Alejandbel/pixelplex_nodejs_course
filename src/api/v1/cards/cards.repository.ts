@@ -43,7 +43,7 @@ export class CardsRepository {
     language: Language
   ): Promise<[Card[], number]> => {
     const findOptions = new FindOptionsBuilder()
-      .applyLimitAndOffset(limit, offset)
+      .applyLimitAndOffset(offset, limit)
       .applySort(sort)
       .applyOrderBy(orderBy)
       .applySearch(language, search)
