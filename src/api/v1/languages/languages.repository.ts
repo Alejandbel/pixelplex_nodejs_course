@@ -38,7 +38,7 @@ export class LanguagesRepository {
     await Language.delete({ id });
   };
 
-  static getAllSortedAndFiltered = async (
+  static getAllSortedAndFilteredWithCount = async (
     limit: number,
     offset: number,
     orderBy: LANGUAGES_ORDER_BY | undefined,

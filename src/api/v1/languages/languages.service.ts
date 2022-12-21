@@ -15,7 +15,13 @@ export class LanguagesService {
     sort: SORT_TYPES | undefined,
     search: string | undefined
   ): Promise<[LanguageDTO[], number]> => {
-    const [languages, count] = await LanguagesRepository.getAllSortedAndFiltered(limit, offset, orderBy, sort, search);
+    const [languages, count] = await LanguagesRepository.getAllSortedAndFilteredWithCount(
+      limit,
+      offset,
+      orderBy,
+      sort,
+      search
+    );
 
     return [languages.map((language) => new LanguageDTO(language)), count];
   };
