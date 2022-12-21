@@ -2,7 +2,7 @@ import { SORT_TYPES } from '@constants';
 import { ParamsId } from '@types';
 
 import { CARDS_ORDER_BY } from './cards.constants';
-import { Card } from './cards.entity';
+import { CardDTO } from './cards.service.mapper';
 
 export interface ICard {
   nativeLanguageId: number;
@@ -20,7 +20,7 @@ export type GetAllCardsQueryDTO = {
   languageId: number;
 };
 export type GetAllCardsResponseDTO = {
-  items: Card[];
+  items: CardDTO[];
   pagination: {
     offset: number;
     limit: number;
@@ -28,14 +28,14 @@ export type GetAllCardsResponseDTO = {
   };
 };
 
-export type UpdateCardResponseDTO = Card;
+export type UpdateCardResponseDTO = CardDTO;
 export type UpdateCardParamsDTO = ParamsId;
 export type UpdateCardBodyDTO = Partial<ICard>;
 
 export type DeleteCardParamsDTO = ParamsId;
 
 export type AddCardBodyDTO = Required<ICard>;
-export type AddCardResponseDTO = Card;
+export type AddCardResponseDTO = CardDTO;
 
 export type GetCardParamsDTO = ParamsId;
-export type GetCardResponseDTO = Card;
+export type GetCardResponseDTO = CardDTO;
