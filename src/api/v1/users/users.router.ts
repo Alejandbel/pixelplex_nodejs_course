@@ -1,7 +1,7 @@
 import { IRouter } from 'express';
 import * as express from 'express';
 
-import { validatePayload } from '@middleware';
+import { isAuth, validatePayload } from '@middleware';
 
 import { UsersController } from './users.controller';
 import { UsersSanitization } from './users.sanitization';
@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.post(
   '/native-language',
+  isAuth,
   UsersValidation.changeLanguage,
   validatePayload,
   UsersSanitization.changeLanguage,
