@@ -1,7 +1,7 @@
 import { SORT_TYPES } from '@constants';
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 import { Language } from '@languages';
-import { Word } from '@words';
+import { Word, WordsRepository } from '@words';
 
 import { CARDS_ORDER_BY } from './cards.constants';
 import { Card } from './cards.entity';
@@ -29,8 +29,8 @@ export class CardsRepository {
   };
 
   static delete = async (id: number): Promise<void> => {
-    await this.findByIdOrFail(id);
-    await Card.delete({ id });
+    const card = await this.findByIdOrFail(id);
+    await Promise.all([WordsRepository.delete(card.nativeWord.id), WordsRepository.delete(card.foreignWord.id)]);
   };
 
   static getAllSortedAndFilteredByUserWithCount = async (
