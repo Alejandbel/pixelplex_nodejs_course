@@ -1,7 +1,6 @@
 import { In, UpdateResult } from 'typeorm';
 
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
-import { LanguagesRepository } from '@languages';
 
 import { AppDataSource } from '../../../data-source';
 
@@ -10,11 +9,9 @@ import { IWord } from './words.types';
 
 export class WordsRepository {
   static create = async (word: string, languageId: number, userId: number): Promise<Word> => {
-    const language = await LanguagesRepository.findByIdOrFail(languageId);
-
     const createdWord = Word.create({
       word,
-      language,
+      languageId,
       userId,
     });
 
@@ -69,5 +66,9 @@ export class WordsRepository {
   static delete = async (id: number): Promise<void> => {
     await this.findByIdOrFail(id);
     await Word.delete({ id });
+  };
+
+  static findByWords = async (words: IWord[]): Promise<Word[]> => {
+    return Word.find({ where: words });
   };
 }
