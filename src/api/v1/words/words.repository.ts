@@ -6,6 +6,7 @@ import { LanguagesRepository } from '@languages';
 import { AppDataSource } from '../../../data-source';
 
 import { Word } from './words.entity';
+import { IWord } from './words.types';
 
 export class WordsRepository {
   static create = async (word: string, languageId: number, userId: number): Promise<Word> => {
@@ -18,6 +19,11 @@ export class WordsRepository {
     });
 
     return Word.save(createdWord);
+  };
+
+  static createMany = async (wordsToCreate: IWord[]): Promise<Word[]> => {
+    const wordsRepository = Word.getRepository();
+    return wordsRepository.save(wordsRepository.create(wordsToCreate));
   };
 
   static findByIdOrFail = async (id: number): Promise<Word> => {
@@ -37,7 +43,6 @@ export class WordsRepository {
 
   static updateMany = async (ids: number[], props: Partial<Word>[]): Promise<Word[]> => {
     const queryRunner = AppDataSource.createQueryRunner();
-
     const wordsLen = ids.length;
 
     await queryRunner.connect();
