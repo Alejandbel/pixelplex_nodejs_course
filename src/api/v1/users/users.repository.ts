@@ -1,5 +1,4 @@
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
-import { Language } from '@languages';
 
 import { User } from './users.entity';
 
@@ -32,9 +31,9 @@ export class UsersRepository {
     return user;
   };
 
-  static changeLanguageById = async (id: number, language: Language): Promise<User> => {
+  static changeLanguageById = async (id: number, languageId: number): Promise<User> => {
     const user = await this.findByIdOrFail(id);
-    user.language = language;
+    user.languageId = languageId;
     return User.save(user);
   };
 }
