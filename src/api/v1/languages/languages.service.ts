@@ -41,11 +41,22 @@ export class LanguagesService {
   };
 
   static updateLanguage = async (id: number, props: Partial<ILanguage>): Promise<LanguageDTO> => {
-    if (props.code && !(await isCodeUnique(props.code))) {
+    const { title, code } = props;
+    const notEmptyProps: Partial<ILanguage> = {};
+
+    if (title) {
+      notEmptyProps.title = title;
+    }
+
+    if (code) {
+      notEmptyProps.code = code;
+    }
+
+    if (notEmptyProps.code && !(await isCodeUnique(notEmptyProps.code))) {
       throw new ServiceError(SERVICE_ERROR_STATUS.CODE_NOT_UNIQUE);
     }
 
-    const language = await LanguagesRepository.update(id, props);
+    const language = await LanguagesRepository.update(id, notEmptyProps);
     return new LanguageDTO(language);
   };
 

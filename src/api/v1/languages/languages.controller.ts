@@ -2,7 +2,6 @@ import { NextFunction, Response } from 'express';
 
 import { TypedRequestBody, TypedRequestParams, TypedRequestQuery } from '@interfaces';
 
-import { pickPropsFromBody } from './languages.controller.utils';
 import { LanguagesService } from './languages.service';
 import {
   AddLanguageBodyDTO,
@@ -74,7 +73,7 @@ export class LanguagesController {
   ): Promise<void> => {
     try {
       const { id } = req.params;
-      const props = pickPropsFromBody(req.body);
+      const props = req.body;
       const language = await LanguagesService.updateLanguage(id, props);
       res.status(200).json(language);
     } catch (error) {
