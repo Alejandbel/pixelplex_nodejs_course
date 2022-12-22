@@ -1,7 +1,7 @@
 import { IRouter } from 'express';
 import * as express from 'express';
 
-import { validatePayload } from '@middleware';
+import { isAuth, validatePayload, isAdmin } from '@middleware';
 
 import { LanguagesController } from './languages.controller';
 import { LanguagesSanitization } from './languages.sanitization';
@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.get(
   '/',
+  isAuth,
   LanguagesValidation.getAllLanguages,
   validatePayload,
   LanguagesSanitization.getAllLanguages,
@@ -19,16 +20,19 @@ router.get(
 
 router.get(
   '/:id',
+  isAuth,
   LanguagesValidation.getLanguage,
   validatePayload,
   LanguagesSanitization.getLanguage,
   LanguagesController.getLanguage
 );
 
-router.post('/', LanguagesValidation.addLanguage, validatePayload, LanguagesController.addLanguage);
+router.post('/', isAuth, isAdmin, LanguagesValidation.addLanguage, validatePayload, LanguagesController.addLanguage);
 
 router.patch(
   '/:id',
+  isAuth,
+  isAdmin,
   LanguagesValidation.updateLanguage,
   validatePayload,
   LanguagesSanitization.updateLanguage,
@@ -37,6 +41,8 @@ router.patch(
 
 router.delete(
   '/:id',
+  isAuth,
+  isAdmin,
   LanguagesValidation.deleteLanguage,
   validatePayload,
   LanguagesSanitization.deleteLanguage,

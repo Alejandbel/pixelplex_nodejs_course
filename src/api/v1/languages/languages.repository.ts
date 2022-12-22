@@ -14,7 +14,7 @@ export class LanguagesRepository {
     return Language.save(language);
   };
 
-  static update = async (id: number, props: Partial<Language>): Promise<Language | null> => {
+  static update = async (id: number, props: Partial<Language>): Promise<Language> => {
     await Language.update({ id }, props);
     return this.findByIdOrFail(id);
   };
@@ -29,25 +29,29 @@ export class LanguagesRepository {
     return language;
   };
 
+  static findByCode = async (code: string): Promise<Language | null> => {
+    return Language.findOneBy({ code });
+  };
+
   static delete = async (id: number): Promise<void> => {
     await this.findByIdOrFail(id);
     await Language.delete({ id });
   };
 
-  static getAllSortedAndFiltered = async (
+  static getAllSortedAndFilteredWithCount = async (
     limit: number,
     offset: number,
     orderBy: LANGUAGES_ORDER_BY | undefined,
     sort: SORT_TYPES | undefined,
     search: string | undefined
-  ): Promise<Language[]> => {
+  ): Promise<[Language[], number]> => {
     const findOptions = new FindOptionsBuilder()
-      .applyLimitAndOffset(limit, offset)
+      .applyLimitAndOffset(offset, limit)
       .applySort(sort)
       .applyOrderBy(orderBy)
       .applySearch(search)
       .getFindOptions();
 
-    return Language.find(findOptions);
+    return Language.findAndCount(findOptions);
   };
 }

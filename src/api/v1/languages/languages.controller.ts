@@ -24,13 +24,13 @@ export class LanguagesController {
   ): Promise<void> => {
     try {
       const { limit, offset, orderBy, sort, search } = req.query;
-      const languages = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
+      const [languages, total] = await LanguagesService.getAllLanguages(limit, offset, orderBy, sort, search);
       res.status(200).json({
         items: languages,
         pagination: {
           offset,
           limit,
-          total: 10,
+          total,
         },
       });
     } catch (error) {
@@ -72,7 +72,7 @@ export class LanguagesController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params as any;
+      const { id } = req.params;
       const props = req.body;
       const language = await LanguagesService.updateLanguage(id, props);
       res.status(200).json(language);

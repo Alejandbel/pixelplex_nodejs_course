@@ -2,7 +2,7 @@ import { SORT_TYPES } from '@constants';
 import { ParamsId } from '@types';
 
 import { LANGUAGES_ORDER_BY } from './languages.constants';
-import { Language } from './languages.entity';
+import { LanguageDTO } from './languages.service.mapper';
 
 export interface ILanguage {
   title: string;
@@ -16,8 +16,9 @@ export type GetAllLanguagesQueryDTO = {
   sort: SORT_TYPES;
   search: string;
 };
+
 export type GetAllLanguagesResponseDTO = {
-  items: Language[];
+  items: LanguageDTO[];
   pagination: {
     offset: number;
     limit: number;
@@ -26,13 +27,13 @@ export type GetAllLanguagesResponseDTO = {
 };
 
 export type GetLanguageParamsDTO = ParamsId;
-export type GetLanguageResponseDTO = Language;
+export type GetLanguageResponseDTO = LanguageDTO;
 
 export type AddLanguageBodyDTO = ILanguage;
-export type AddLanguageResponseDTO = Language;
+export type AddLanguageResponseDTO = LanguageDTO;
 
 export type UpdateLanguageParamsDTO = ParamsId;
-export type UpdateLanguageBodyDTO = ILanguage;
-export type UpdateLanguageResponseDTO = Language;
+export type UpdateLanguageBodyDTO = Partial<ILanguage>;
+export type UpdateLanguageResponseDTO = LanguageDTO;
 
 export type DeleteLanguageParamsDTO = ParamsId;
