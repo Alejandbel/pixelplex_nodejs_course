@@ -10,7 +10,10 @@ export class FindOptionsBuilder {
 
   applyRelations = (): FindOptionsBuilder => {
     this.findOptions.relations = {
-      card: true,
+      card: {
+        nativeWord: true,
+        foreignWord: true,
+      },
     };
     return this;
   };

@@ -80,6 +80,10 @@ export class CardsRepository {
     const randomOffset = randomInt(0, count);
 
     const cards = await Card.find({
+      relations: {
+        nativeWord: true,
+        foreignWord: true,
+      },
       skip: randomOffset,
       take: 1,
       where: whereOptions,
