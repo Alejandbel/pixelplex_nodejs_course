@@ -19,7 +19,15 @@ export class TasksRepository {
   };
 
   static findByIdOrFail = async (id: number): Promise<Task> => {
-    const task = await Task.findOneBy({ id });
+    const task = await Task.findOne({
+      relations: {
+        card: {
+          nativeWord: true,
+          foreignWord: true,
+        },
+      },
+      where: { id },
+    });
 
     if (!task) {
       throw new RepositoryError('Task does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
@@ -33,20 +41,20 @@ export class TasksRepository {
     await Task.delete({ id });
   };
 
-  static getAllSortedAndFilteredByUser = async (
+  static getAllSortedAndFilteredByUserWithCount = async (
     limit: number,
     offset: number,
-    sort: SORT_TYPES,
-    searchWord: string,
+    sort: SORT_TYPES | undefined,
+    searchWord: string | undefined,
     userId: number
-  ): Promise<Task[]> => {
+  ): Promise<[Task[], number]> => {
     const findOptions = new FindOptionsBuilder()
-      .applyLimitAndOffset(limit, offset)
+      .applyLimitAndOffset(offset, limit)
       .applySortByDate(sort)
       .applySearchAndUserIdOnUncompletedTasks(searchWord, userId)
       .applyRelations()
       .getFindOptions();
 
-    return Task.find(findOptions);
+    return Task.findAndCount(findOptions);
   };
 }
