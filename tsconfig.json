@@ -27,6 +27,7 @@
       "@tasks": ["api/v1/tasks"],
       "@answers": ["api/v1/answers"],
       "@config": ["config.ts"],
+      "@migrations": ["migrations"],
     }
   },
   "include": ["./src/**/*.ts"],
