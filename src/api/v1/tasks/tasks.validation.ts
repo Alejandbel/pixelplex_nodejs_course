@@ -47,6 +47,7 @@ export class TasksValidation {
       exists: {
         options: { checkFalsy: true },
       },
+      isDate: true,
     },
     dateEnd: {
       in: ['query'],
