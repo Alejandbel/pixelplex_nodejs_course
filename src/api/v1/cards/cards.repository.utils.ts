@@ -65,13 +65,13 @@ export class FindOptionsBuilder {
       this.findOptions.where = [
         {
           foreignWord: {
-            language: Equal(Language),
+            language: Equal(language.id),
             word: ILike(`%${search}%`),
           },
         },
         {
           nativeWord: {
-            language: Equal(Language),
+            language: Equal(language.id),
             word: ILike(`%${search}%`),
           },
         },
@@ -80,12 +80,12 @@ export class FindOptionsBuilder {
       this.findOptions.where = [
         {
           foreignWord: {
-            language: Equal(Language),
+            language: Equal(language.id),
           },
         },
         {
           nativeWord: {
-            language: Equal(Language),
+            language: Equal(language.id),
           },
         },
       ];
