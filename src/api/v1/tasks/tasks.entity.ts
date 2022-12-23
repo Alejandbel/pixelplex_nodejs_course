@@ -29,6 +29,6 @@ export class Task extends CommonEntity {
   })
   target: TARGET_CONSTANTS;
 
-  @Column()
+  @Column({ default: false })
   isCompleted: boolean;
 }
