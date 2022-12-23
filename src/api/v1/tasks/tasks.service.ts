@@ -76,14 +76,16 @@ export class TasksService {
       throw new ServiceError(SERVICE_ERROR_STATUS.NOT_ALLOWED);
     }
 
+    await TasksRepository.update(task.id, { isCompleted: true });
+
     let isCorrect: boolean;
     switch (task.target) {
       case TARGET_CONSTANTS.TO_NATIVE: {
-        isCorrect = answer === task.card.nativeWord.word;
+        isCorrect = answer.trim().toLowerCase() === task.card.nativeWord.word.trim().toLowerCase();
         break;
       }
       case TARGET_CONSTANTS.TO_FOREIGN: {
-        isCorrect = answer === task.card.foreignWord.word;
+        isCorrect = answer.trim().toLowerCase() === task.card.foreignWord.word.trim().toLowerCase();
         break;
       }
     }
