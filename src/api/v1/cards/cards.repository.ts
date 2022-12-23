@@ -30,7 +30,11 @@ export class CardsRepository {
 
   static delete = async (id: number): Promise<void> => {
     const card = await this.findByIdOrFail(id);
-    await Promise.all([WordsRepository.delete(card.nativeWord.id), WordsRepository.delete(card.foreignWord.id)]);
+
+    const foreignWordId = card.foreignWord.id;
+    const nativeWordId = card.nativeWord.id;
+
+    await WordsRepository.deleteMany([foreignWordId, nativeWordId]);
   };
 
   static getAllSortedAndFilteredByUserWithCount = async (

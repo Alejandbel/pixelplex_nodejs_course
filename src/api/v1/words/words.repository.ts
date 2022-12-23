@@ -1,4 +1,4 @@
-import { In, UpdateResult } from 'typeorm';
+import { DeleteResult, In, UpdateResult } from 'typeorm';
 
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 
@@ -56,6 +56,18 @@ export class WordsRepository {
   static delete = async (id: number): Promise<void> => {
     await this.findByIdOrFail(id);
     await Word.delete({ id });
+  };
+
+  static deleteMany = async (ids: number[]): Promise<void> => {
+    await AppDataSource.transaction(async (transactionalEntityManager) => {
+      const queryList: Promise<DeleteResult>[] = [];
+
+      for (const id of ids) {
+        queryList.push(transactionalEntityManager.delete(Word, { id }));
+      }
+
+      await Promise.all(queryList);
+    });
   };
 
   static findByWords = async (words: IWord[]): Promise<Word[]> => {
