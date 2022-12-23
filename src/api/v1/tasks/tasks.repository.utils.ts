@@ -34,7 +34,7 @@ export class FindOptionsBuilder {
   };
 
   applySearchAndUserIdOnUncompletedTasks = (search: string | undefined, userId: number): FindOptionsBuilder => {
-    if (!search) {
+    if (search) {
       this.findOptions.where = [
         {
           isCompleted: false,
