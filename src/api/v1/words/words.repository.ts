@@ -39,26 +39,16 @@ export class WordsRepository {
   };
 
   static updateMany = async (ids: number[], props: Partial<Word>[]): Promise<Word[]> => {
-    const queryRunner = AppDataSource.createQueryRunner();
-    const wordsLen = ids.length;
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
-    try {
+    await AppDataSource.transaction(async (transactionalEntityManager) => {
       const queryList: Promise<UpdateResult>[] = [];
-      for (let i = 0; i < wordsLen; i++) {
-        queryList.push(queryRunner.manager.update(Word, { id: ids[i] }, props[i]));
-      }
-      await Promise.all(queryList);
 
-      await queryRunner.commitTransaction();
-    } catch (err) {
-      await queryRunner.rollbackTransaction();
-      throw err;
-    } finally {
-      await queryRunner.release();
-    }
+      const wordsLen = ids.length;
+      for (let i = 0; i < wordsLen; i++) {
+        queryList.push(transactionalEntityManager.update(Word, { id: ids[i] }, props[i]));
+      }
+
+      await Promise.all(queryList);
+    });
 
     return Word.findBy({ id: In(ids) });
   };
