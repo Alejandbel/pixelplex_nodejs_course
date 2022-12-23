@@ -1,9 +1,10 @@
 import { SORT_TYPES } from '@constants';
 import { SERVICE_ERROR_STATUS, ServiceError } from '@errors';
 import { LanguagesRepository } from '@languages';
-import { areWordsUnique, WordsRepository } from '@words';
+import { areWordsUnique, IWord, Word, WordsRepository } from '@words';
 
 import { CARDS_ORDER_BY } from './cards.constants';
+import { Card } from './cards.entity';
 import { CardsRepository } from './cards.repository';
 import { CardDTO } from './cards.service.mapper';
 import { ICard } from './cards.types';
@@ -73,25 +74,36 @@ export class CardsService {
   };
 
   static updateCard = async (id: number, props: Partial<ICard>, userId: number): Promise<CardDTO> => {
-    let { nativeLanguageId, nativeWord, foreignLanguageId, foreignWord } = props;
-
     const card = await CardsRepository.findByIdOrFail(id);
 
     if (card.userId != userId) {
       throw new ServiceError(SERVICE_ERROR_STATUS.NOT_ALLOWED);
     }
 
-    if (nativeLanguageId) {
-      await LanguagesRepository.findByIdOrFail(nativeLanguageId);
-    } else {
-      nativeLanguageId = card.nativeWord.languageId;
+    const { nativeWordProps, foreignWordProps } = await this.parseWordsProps(props, card, userId);
+
+    if (!(await areWordsUnique([nativeWordProps, foreignWordProps]))) {
+      throw new ServiceError(SERVICE_ERROR_STATUS.WORD_NOT_UNIQUE);
     }
 
-    if (foreignLanguageId) {
-      await LanguagesRepository.findByIdOrFail(foreignLanguageId);
-    } else {
-      foreignLanguageId = card.foreignWord.languageId;
-    }
+    await WordsRepository.updateMany([card.nativeWord.id, card.foreignWord.id], [nativeWordProps, foreignWordProps]);
+
+    return new CardDTO(await CardsRepository.findByIdOrFail(id));
+  };
+
+  private static async parseWordsProps(
+    props: Partial<ICard>,
+    card: Card,
+    userId: number
+  ): Promise<{
+    nativeWordProps: IWord;
+    foreignWordProps: IWord;
+  }> {
+    let { nativeLanguageId, nativeWord, foreignLanguageId, foreignWord } = props;
+
+    nativeLanguageId = await this.parseLanguage(nativeLanguageId, card.nativeWord);
+
+    foreignLanguageId = await this.parseLanguage(foreignLanguageId, card.foreignWord);
 
     if (!nativeWord) {
       nativeWord = card.nativeWord.word;
@@ -104,25 +116,26 @@ export class CardsService {
     const nativeWordProps = {
       word: nativeWord,
       languageId: nativeLanguageId,
+      userId,
     };
+
     const foreignWordProps = {
       word: foreignWord,
       languageId: foreignLanguageId,
+      userId,
     };
 
-    if (
-      !(await areWordsUnique([
-        { ...nativeWordProps, userId },
-        { ...foreignWordProps, userId },
-      ]))
-    ) {
-      throw new ServiceError(SERVICE_ERROR_STATUS.WORD_NOT_UNIQUE);
+    return { nativeWordProps, foreignWordProps };
+  }
+
+  private static async parseLanguage(languageId: number, word: Word): Promise<number> {
+    if (languageId) {
+      await LanguagesRepository.findByIdOrFail(languageId);
+      return languageId;
+    } else {
+      return word.languageId;
     }
-
-    await WordsRepository.updateMany([card.nativeWord.id, card.foreignWord.id], [nativeWordProps, foreignWordProps]);
-
-    return new CardDTO(await CardsRepository.findByIdOrFail(id));
-  };
+  }
 
   static deleteCard = async (id: number, userId: number): Promise<void> => {
     const card = await CardsRepository.findByIdOrFail(id);
