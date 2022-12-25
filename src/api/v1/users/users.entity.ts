@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, Index, Unique } from 'typeorm';
+import { Entity, Column, ManyToOne, Index, Unique, JoinColumn } from 'typeorm';
 
 import { CommonEntity } from '@entities';
 import { Language } from '@languages';
@@ -31,5 +31,11 @@ export class User extends CommonEntity {
   @ManyToOne(() => Language, {
     onDelete: 'SET NULL',
   })
+  @JoinColumn({ name: 'languageId' })
   language: Language;
+
+  @Column({
+    nullable: true,
+  })
+  languageId: number;
 }

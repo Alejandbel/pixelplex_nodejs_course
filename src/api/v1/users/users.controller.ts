@@ -13,7 +13,10 @@ export class UsersController {
   ): Promise<void> => {
     try {
       const { languageId } = req.body;
-      await UsersService.changeLanguage(languageId);
+      const userId = req.user.id;
+
+      await UsersService.changeLanguage(userId, languageId);
+
       const message = 'Language changed successfully';
       res.status(200).json({ message });
     } catch (error) {
