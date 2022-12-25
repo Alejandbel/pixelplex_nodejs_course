@@ -1,14 +1,14 @@
 import { SORT_TYPES } from '@constants';
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 import { Language } from '@languages';
-import { Word } from '@words';
+import { Word, WordsRepository } from '@words';
 
 import { CARDS_ORDER_BY } from './cards.constants';
 import { Card } from './cards.entity';
 import { FindOptionsBuilder } from './cards.repository.utils';
 
 export class CardsRepository {
-  static create = async (nativeWord: Word, foreignWord: Language, userId: number): Promise<Card> => {
+  static create = async (nativeWord: Word, foreignWord: Word, userId: number): Promise<Card> => {
     const card = Card.create({ nativeWord, foreignWord, userId });
     return Card.save(card);
   };
@@ -19,7 +19,7 @@ export class CardsRepository {
   };
 
   static findByIdOrFail = async (id: number): Promise<Card> => {
-    const card = await Card.findOneBy({ id });
+    const card = await Card.findOne({ relations: { nativeWord: true, foreignWord: true }, where: { id } });
 
     if (!card) {
       throw new RepositoryError('Card does not exists', REPOSITORY_ERROR_STATUS.NOT_FOUND);
@@ -29,11 +29,15 @@ export class CardsRepository {
   };
 
   static delete = async (id: number): Promise<void> => {
-    await this.findByIdOrFail(id);
-    await Card.delete({ id });
+    const card = await this.findByIdOrFail(id);
+
+    const foreignWordId = card.foreignWord.id;
+    const nativeWordId = card.nativeWord.id;
+
+    await WordsRepository.deleteMany([foreignWordId, nativeWordId]);
   };
 
-  static getAllSortedAndFilteredByUser = async (
+  static getAllSortedAndFilteredByUserWithCount = async (
     limit: number,
     offset: number,
     orderBy: CARDS_ORDER_BY | undefined,
@@ -41,9 +45,9 @@ export class CardsRepository {
     search: string | undefined,
     userId: number,
     language: Language
-  ): Promise<Card[]> => {
+  ): Promise<[Card[], number]> => {
     const findOptions = new FindOptionsBuilder()
-      .applyLimitAndOffset(limit, offset)
+      .applyLimitAndOffset(offset, limit)
       .applySort(sort)
       .applyOrderBy(orderBy)
       .applySearch(language, search)
@@ -51,6 +55,6 @@ export class CardsRepository {
       .applyRelations()
       .getFindOptions();
 
-    return Card.find(findOptions);
+    return Card.findAndCount(findOptions);
   };
 }

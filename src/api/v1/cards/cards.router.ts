@@ -1,7 +1,7 @@
 import { IRouter } from 'express';
 import * as express from 'express';
 
-import { validatePayload } from '@middleware';
+import { isAuth, validatePayload } from '@middleware';
 
 import { CardsController } from './cards.controller';
 import { CardsSanitization } from './cards.sanitization';
@@ -11,18 +11,27 @@ const router = express.Router();
 
 router.get(
   '/',
+  isAuth,
   CardsValidation.getAllCards,
   validatePayload,
   CardsSanitization.getAllCards,
   CardsController.getAllCards
 );
 
-router.get('/:id', CardsValidation.getCard, validatePayload, CardsSanitization.getCard, CardsController.getCard);
+router.get(
+  '/:id',
+  isAuth,
+  CardsValidation.getCard,
+  validatePayload,
+  CardsSanitization.getCard,
+  CardsController.getCard
+);
 
-router.post('/', CardsValidation.addCard, validatePayload, CardsSanitization.addCard, CardsController.addCard);
+router.post('/', isAuth, CardsValidation.addCard, validatePayload, CardsSanitization.addCard, CardsController.addCard);
 
 router.patch(
   '/:id',
+  isAuth,
   CardsValidation.updateCard,
   validatePayload,
   CardsSanitization.updateCard,
@@ -31,6 +40,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  isAuth,
   CardsValidation.deleteCard,
   validatePayload,
   CardsSanitization.deleteCard,
