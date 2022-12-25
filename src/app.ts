@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 
 import { logRequest, parseJson, processError, processNotFoundEndpoint } from '@middleware';
@@ -5,6 +6,8 @@ import { logRequest, parseJson, processError, processNotFoundEndpoint } from '@m
 import { mountRouter as mountApiRouter } from './api';
 
 export const app = express();
+
+app.use(cors());
 
 app.use(parseJson);
 
