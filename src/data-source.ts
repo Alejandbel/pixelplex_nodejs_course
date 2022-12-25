@@ -1,13 +1,13 @@
 import { DataSource } from 'typeorm';
 
+import { Answer } from '@answers';
 import { Card } from '@cards';
 import { DATASOURCE_CONFIG } from '@config';
 import { Language } from '@languages';
+import * as Migrations from '@migrations';
 import { Task } from '@tasks';
 import { User } from '@users';
 import { Word } from '@words';
-
-import { Answer } from './api/v1/answers/answers.entity';
 
 export const AppDataSource = new DataSource({
   type: DATASOURCE_CONFIG.TYPE,
@@ -19,4 +19,5 @@ export const AppDataSource = new DataSource({
   synchronize: DATASOURCE_CONFIG.SYNCHRONIZE,
   logging: DATASOURCE_CONFIG.LOGGING,
   entities: [User, Language, Task, Card, Answer, Word],
+  migrations: Object.values(Migrations),
 });

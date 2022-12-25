@@ -5,6 +5,7 @@ module.exports = {
       'alias': {
         'map': [
           ["@middleware", "./src/middleware"],
+          ["@migrations", "./src/migrations"],
           ["@errors", "./src/errors"],
           ["@interfaces", "./src/interfaces"],
           ["@constants", "./src/constants"],
