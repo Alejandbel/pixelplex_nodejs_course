@@ -90,12 +90,7 @@ export class TasksService {
       }
     }
 
-    let result: RESULT_CONSTANTS;
-    if (isCorrect) {
-      result = RESULT_CONSTANTS.CORRECT;
-    } else {
-      result = RESULT_CONSTANTS.INCORRECT;
-    }
+    const result = isCorrect ? RESULT_CONSTANTS.CORRECT : RESULT_CONSTANTS.INCORRECT;
 
     await AnswersRepository.create(userId, task.id, answer, isCorrect);
 
