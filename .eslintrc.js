@@ -4,6 +4,7 @@ module.exports = {
     'import/resolver': {
       'alias': {
         'map': [
+          ["@events", "./src/events"],
           ["@middleware", "./src/middleware"],
           ["@migrations", "./src/migrations"],
           ["@errors", "./src/errors"],
