@@ -5,7 +5,7 @@ import { APPLICATION_CONFIG } from '@config';
 import { app } from './app';
 import { AppDataSource } from './data-source';
 
-const server = http.createServer(app);
+export const server = http.createServer(app);
 
 async function init(): Promise<void> {
   try {
