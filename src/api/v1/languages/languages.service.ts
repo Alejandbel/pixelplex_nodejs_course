@@ -1,5 +1,6 @@
 import { SORT_TYPES } from '@constants';
 import { SERVICE_ERROR_STATUS, ServiceError } from '@errors';
+import { eventEmitter } from '@events';
 
 import { LANGUAGES_ORDER_BY } from './languages.constants';
 import { LanguagesRepository } from './languages.repository';
@@ -37,6 +38,8 @@ export class LanguagesService {
     }
 
     const language = await LanguagesRepository.create(title, code);
+
+    eventEmitter.emit('new-language', language);
     return new LanguageDTO(language);
   };
 
