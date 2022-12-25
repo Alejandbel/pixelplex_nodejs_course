@@ -20,6 +20,7 @@ export class TaskDTO {
       }
       case TARGET_CONSTANTS.TO_NATIVE: {
         this.word = card.foreignWord.word;
+        break;
       }
     }
 
