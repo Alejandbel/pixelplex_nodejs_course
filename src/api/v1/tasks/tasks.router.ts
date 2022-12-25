@@ -1,7 +1,7 @@
 import { IRouter } from 'express';
 import * as express from 'express';
 
-import { validatePayload } from '@middleware';
+import { isAuth, validatePayload } from '@middleware';
 
 import { TasksController } from './tasks.controller';
 import { TasksSanitization } from './tasks.sanitization';
@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.get(
   '/',
+  isAuth,
   TasksValidation.getUncompletedTasks,
   validatePayload,
   TasksSanitization.getUncompletedTasks,
@@ -19,18 +20,27 @@ router.get(
 
 router.get(
   '/statistic',
+  isAuth,
   TasksValidation.getStatistic,
   validatePayload,
   TasksSanitization.getStatistic,
   TasksController.getStatistic
 );
 
-router.get('/:id', TasksValidation.getTask, validatePayload, TasksSanitization.getTask, TasksController.getTask);
+router.get(
+  '/:id',
+  isAuth,
+  TasksValidation.getTask,
+  validatePayload,
+  TasksSanitization.getTask,
+  TasksController.getTask
+);
 
-router.post('/', TasksValidation.addTask, validatePayload, TasksSanitization.addTask, TasksController.addTask);
+router.post('/', isAuth, TasksValidation.addTask, validatePayload, TasksSanitization.addTask, TasksController.addTask);
 
 router.post(
   '/:id',
+  isAuth,
   TasksValidation.completeTask,
   validatePayload,
   TasksSanitization.completeTask,

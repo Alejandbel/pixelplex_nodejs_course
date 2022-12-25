@@ -25,13 +25,16 @@ export class TasksController {
   ): Promise<void> => {
     try {
       const { limit, offset, sort, searchWord } = req.query;
-      const tasks = await TasksService.getUncompletedTasks(limit, offset, sort, searchWord);
+      const userId = req.user.id;
+
+      const [tasks, total] = await TasksService.getUncompletedTasks(limit, offset, sort, searchWord, userId);
+
       res.status(200).json({
         items: tasks,
         pagination: {
           offset,
           limit,
-          total: 10,
+          total,
         },
       });
     } catch (error) {
@@ -46,7 +49,10 @@ export class TasksController {
   ): Promise<void> => {
     try {
       const { dateBegin, dateEnd, languageId } = req.query;
-      const statistic = await TasksService.getStatistic(dateBegin, dateEnd, languageId);
+      const userId = req.user.id;
+
+      const statistic = await TasksService.getStatistic(dateBegin, dateEnd, languageId, userId);
+
       res.status(200).json(statistic);
     } catch (error) {
       next(error);
@@ -60,7 +66,10 @@ export class TasksController {
   ): Promise<void> => {
     try {
       const { id } = req.params;
-      const task = await TasksService.getTask(id);
+      const userId = req.user.id;
+
+      const task = await TasksService.getTask(id, userId);
+
       res.status(200).json(task);
     } catch (error) {
       next(error);
@@ -74,7 +83,10 @@ export class TasksController {
   ): Promise<void> => {
     try {
       const { languageId, target } = req.body;
-      const task = await TasksService.addTask(languageId, target);
+      const userId = req.user.id;
+
+      const task = await TasksService.addTask(languageId, target, userId);
+
       res.status(201).json(task);
     } catch (error) {
       next(error);
@@ -89,7 +101,10 @@ export class TasksController {
     try {
       const { id } = req.params;
       const { answer } = req.body;
-      const result = await TasksService.completeTask(id, answer);
+      const userId = req.user.id;
+
+      const result = await TasksService.completeTask(id, answer, userId);
+
       res.status(200).json({ result });
     } catch (error) {
       next(error);

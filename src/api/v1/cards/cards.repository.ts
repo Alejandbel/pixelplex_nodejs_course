@@ -1,3 +1,5 @@
+import { randomInt } from 'crypto';
+
 import { SORT_TYPES } from '@constants';
 import { REPOSITORY_ERROR_STATUS, RepositoryError } from '@errors';
 import { Language } from '@languages';
@@ -56,5 +58,37 @@ export class CardsRepository {
       .getFindOptions();
 
     return Card.findAndCount(findOptions);
+  };
+
+  static getRandomCardByUserAndLanguages = async (
+    userId: number,
+    nativeLanguageId: number,
+    foreignLanguageId: number
+  ): Promise<Card> => {
+    const whereOptions = {
+      userId,
+      nativeWord: { languageId: nativeLanguageId },
+      foreignWord: { languageId: foreignLanguageId },
+    };
+
+    const count = await Card.countBy(whereOptions);
+
+    if (!count) {
+      throw new RepositoryError('Cards to get task not found', REPOSITORY_ERROR_STATUS.NOT_FOUND);
+    }
+
+    const randomOffset = randomInt(0, count);
+
+    const cards = await Card.find({
+      relations: {
+        nativeWord: true,
+        foreignWord: true,
+      },
+      skip: randomOffset,
+      take: 1,
+      where: whereOptions,
+    });
+
+    return cards[0];
   };
 }

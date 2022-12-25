@@ -1,61 +1,100 @@
+import { AnswersRepository } from '@answers';
+import { CardsRepository } from '@cards';
 import { SORT_TYPES } from '@constants';
+import { SERVICE_ERROR_STATUS, ServiceError } from '@errors';
+import { LanguagesRepository } from '@languages';
+import { UsersRepository } from '@users';
 
 import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
-import { Task } from './tasks.entity';
+import { TasksRepository } from './tasks.repository';
+import { TaskDTO } from './tasks.service.mapper';
+import { isAnswerCorrect } from './tasks.service.utils';
 
 export class TasksService {
   static getUncompletedTasks = async (
     limit: number,
     offset: number,
-    sort: SORT_TYPES,
-    searchWord: string
-  ): Promise<Task[]> => {
-    console.log('getUncompletedTasks', limit, offset, sort, searchWord);
-    return [
-      {
-        id: 1,
-        foreignLanguageId: 2,
-        word: 'House',
-        target: TARGET_CONSTANTS.TO_FOREIGN,
-      },
-      {
-        id: 2,
-        foreignLanguageId: 3,
-        word: 'Дом',
-        target: TARGET_CONSTANTS.TO_NATIVE,
-      },
-    ];
+    sort: SORT_TYPES | undefined,
+    searchWord: string | undefined,
+    userId: number
+  ): Promise<[TaskDTO[], number]> => {
+    const [tasks, count] = await TasksRepository.getAllSortedAndFilteredByUserWithCount(
+      limit,
+      offset,
+      sort,
+      searchWord,
+      userId
+    );
+
+    return [tasks.map((task) => new TaskDTO(task)), count];
   };
 
   static getStatistic = async (
     dateBegin: Date,
     dateEnd: Date,
-    languageId: number
+    languageId: number,
+    userId: number
   ): Promise<{ correct: number; incorrect: number }> => {
-    console.log('getStatistic', dateBegin, dateEnd, languageId);
-    return {
-      correct: 10,
-      incorrect: 20,
-    };
+    const language = await LanguagesRepository.findByIdOrFail(languageId);
+
+    const correctPromise = AnswersRepository.getStatisticByStatus(userId, dateBegin, dateEnd, language, true);
+    const incorrectPromise = AnswersRepository.getStatisticByStatus(userId, dateBegin, dateEnd, language, false);
+
+    const [correct, incorrect] = await Promise.all([correctPromise, incorrectPromise]);
+    return { correct, incorrect };
   };
 
-  static getTask = async (id: number): Promise<Task> => {
-    console.log('getTask', id);
-    return {
-      id: 1,
-      foreignLanguageId: 2,
-      word: 'House',
-      target: TARGET_CONSTANTS.TO_NATIVE,
-    };
+  static getTask = async (id: number, userId: number): Promise<TaskDTO> => {
+    const task = await TasksRepository.findByIdOrFail(id);
+
+    if (task.userId != userId) {
+      throw new ServiceError(SERVICE_ERROR_STATUS.NOT_ALLOWED);
+    }
+
+    return new TaskDTO(task);
   };
 
-  static addTask = async (languageId: number, target: TARGET_CONSTANTS): Promise<Task> => {
-    console.log('addTask', languageId, target);
-    return new Task('House', languageId, target);
+  static addTask = async (foreignLanguageId: number, target: TARGET_CONSTANTS, userId: number): Promise<TaskDTO> => {
+    const user = await UsersRepository.findByIdOrFail(userId);
+
+    const nativeLanguageId = user.languageId;
+
+    if (!nativeLanguageId) {
+      throw new ServiceError(SERVICE_ERROR_STATUS.LANGUAGE_NOT_SET);
+    }
+
+    const card = await CardsRepository.getRandomCardByUserAndLanguages(userId, nativeLanguageId, foreignLanguageId);
+
+    const task = await TasksRepository.create(card, userId, target);
+
+    return new TaskDTO(task);
   };
 
-  static completeTask = async (id: number, answer: string): Promise<RESULT_CONSTANTS> => {
-    console.log('completeTask', id, answer);
-    return RESULT_CONSTANTS.CORRECT;
+  static completeTask = async (id: number, answer: string, userId: number): Promise<RESULT_CONSTANTS> => {
+    const task = await TasksRepository.findByIdOrFail(id);
+
+    if (task.userId != userId) {
+      throw new ServiceError(SERVICE_ERROR_STATUS.NOT_ALLOWED);
+    }
+
+    await TasksRepository.update(task.id, { isCompleted: true });
+
+    let isCorrect: boolean;
+    switch (task.target) {
+      case TARGET_CONSTANTS.TO_NATIVE: {
+        isCorrect = isAnswerCorrect(answer, task.card.foreignWord.word);
+        break;
+      }
+      case TARGET_CONSTANTS.TO_FOREIGN: {
+        isCorrect = isAnswerCorrect(answer, task.card.foreignWord.word);
+        break;
+      }
+    }
+
+    const result = isCorrect ? RESULT_CONSTANTS.CORRECT : RESULT_CONSTANTS.INCORRECT;
+
+    await AnswersRepository.create(userId, task.id, answer, isCorrect);
+
+    return result;
   };
 }

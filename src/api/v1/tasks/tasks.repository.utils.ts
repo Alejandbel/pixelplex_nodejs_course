@@ -10,7 +10,10 @@ export class FindOptionsBuilder {
 
   applyRelations = (): FindOptionsBuilder => {
     this.findOptions.relations = {
-      card: true,
+      card: {
+        nativeWord: true,
+        foreignWord: true,
+      },
     };
     return this;
   };
@@ -34,7 +37,7 @@ export class FindOptionsBuilder {
   };
 
   applySearchAndUserIdOnUncompletedTasks = (search: string | undefined, userId: number): FindOptionsBuilder => {
-    if (!search) {
+    if (search) {
       this.findOptions.where = [
         {
           isCompleted: false,

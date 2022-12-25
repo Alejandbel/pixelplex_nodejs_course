@@ -32,7 +32,7 @@ export class AnswersRepository {
             target: TARGET_CONSTANTS.TO_NATIVE,
             card: {
               foreignWord: {
-                language: Equal(language),
+                language: Equal(language.id),
               },
             },
           },
@@ -43,7 +43,7 @@ export class AnswersRepository {
             target: TARGET_CONSTANTS.TO_FOREIGN,
             card: {
               nativeWord: {
-                language: Equal(language),
+                language: Equal(language.id),
               },
             },
           },
