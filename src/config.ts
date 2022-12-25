@@ -17,9 +17,11 @@ export class APPLICATION_CONFIG {
   static readonly PORT = Number(process.env.APPLICATION_PORT) ?? 8000;
 }
 
-export const JWT_SECRET =
-  process.env.JWT_SECRET ??
-  ((): never => {
-    console.error('JWT IS NOT PROVIDED');
-    process.exit(1);
-  })();
+const exitWithMessage = (message: string): never => {
+  console.error(message);
+  process.exit(1);
+};
+
+export const JWT_SECRET = process.env.JWT_SECRET ?? exitWithMessage('JWT IS NOT PROVIDED');
+
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? exitWithMessage('ADMIN PASSWORD IS NOT PROVIDED');
