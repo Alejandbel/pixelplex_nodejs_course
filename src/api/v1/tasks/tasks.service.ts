@@ -8,6 +8,7 @@ import { UsersRepository } from '@users';
 import { RESULT_CONSTANTS, TARGET_CONSTANTS } from './tasks.constants';
 import { TasksRepository } from './tasks.repository';
 import { TaskDTO } from './tasks.service.mapper';
+import { isAnswerCorrect } from './tasks.service.utils';
 
 export class TasksService {
   static getUncompletedTasks = async (
@@ -81,11 +82,11 @@ export class TasksService {
     let isCorrect: boolean;
     switch (task.target) {
       case TARGET_CONSTANTS.TO_NATIVE: {
-        isCorrect = answer.trim().toLowerCase() === task.card.nativeWord.word.trim().toLowerCase();
+        isCorrect = isAnswerCorrect(answer, task.card.foreignWord.word);
         break;
       }
       case TARGET_CONSTANTS.TO_FOREIGN: {
-        isCorrect = answer.trim().toLowerCase() === task.card.foreignWord.word.trim().toLowerCase();
+        isCorrect = isAnswerCorrect(answer, task.card.foreignWord.word);
         break;
       }
     }
