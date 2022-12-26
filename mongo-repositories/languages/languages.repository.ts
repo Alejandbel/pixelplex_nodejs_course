@@ -54,12 +54,14 @@ export class LanguagesRepository {
     if (orderBy) {
       sort = sort ?? SORT_TYPES.ASC;
       switch (orderBy) {
-        case LANGUAGES_ORDER_BY.DATE:
+        case LANGUAGES_ORDER_BY.DATE: {
           query = query.sort([['createdAt', sort]]);
           break;
-        case LANGUAGES_ORDER_BY.NAME:
+        }
+        case LANGUAGES_ORDER_BY.NAME: {
           query = query.sort([['title', sort]]);
           break;
+        }
       }
     }
 
