@@ -2,7 +2,6 @@ import { Types } from 'mongoose';
 
 import { SORT_TYPES } from '../common.constants';
 import { Card } from '../models/card.model';
-import { Language } from '../models/language.model';
 
 import { CARDS_ORDER_BY } from './cards.constants';
 import { ICard } from './cards.inteface';
@@ -94,10 +93,10 @@ export class CardsRepository {
     }
 
     const count = await (search
-      ? Language.countDocuments({
+      ? Card.countDocuments({
           $or: [{ nativeWord: search }, { foreignWord: search }],
         })
-      : Language.countDocuments({})
+      : Card.countDocuments({})
     ).exec();
 
     const cards = await query.skip(offset).limit(limit).exec();
