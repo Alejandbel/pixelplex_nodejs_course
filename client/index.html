@@ -46,6 +46,9 @@
 
   socket.connect();
 
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxNSwicm9sZSI6InVzZXIifSwiaWF0IjoxNjcyMDYyNTE1LCJleHAiOjE2NzIwNjYxMTV9.lDtCjD-LFephvt3fr1hDYtSxr9q_slkQ8bSwzA0ud7c';
+
+  socket.emit('auth', { token });
   socket.on('message', function(data) {
     data = JSON.parse(data);
     try {
