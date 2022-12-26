@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Flashcards</title>
+  <style>
+      body {
+          background: #ccc;
+      }
+
+      main {
+          position: absolute;
+          width: 100vw;
+          height: 100vh;
+      }
+
+      section {
+          width: 500px;
+          padding: 8px;
+          text-align: center;
+          background: #fefefe;
+          border-radius: 9px;
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      h1 {
+          font-family: "Courier New", Courier, monospace;
+          margin-bottom: 12px;
+      }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <h1>Flashcards</h1>
+  </section>
+</main>
+<script src='https://cdn.socket.io/4.5.4/socket.io.min.js'></script>
+<script>
+  const socket = io('ws://localhost:8080');
+
+  socket.connect();
+
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxNSwicm9sZSI6InVzZXIifSwiaWF0IjoxNjcyMDYyNTE1LCJleHAiOjE2NzIwNjYxMTV9.lDtCjD-LFephvt3fr1hDYtSxr9q_slkQ8bSwzA0ud7c';
+
+  socket.emit('auth', { token });
+  socket.on('message', function(data) {
+    data = JSON.parse(data);
+    try {
+      switch (data.event) {
+        case 'new-language':
+          alert(`New language "${data.payload.title}" appeared`);
+          break;
+        default:
+          console.log('Unknown event');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>
+</body>
+</html>
