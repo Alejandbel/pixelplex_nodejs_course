@@ -16,13 +16,19 @@ const cardSchema = new mongoose.Schema<ICard>(
       type: mongoose.SchemaTypes.ObjectId,
       required: true,
     },
-    nativeWord: String,
+    nativeWord: {
+      type: String,
+      required: true,
+    },
     foreignLanguage: {
       ref: 'language',
       type: mongoose.SchemaTypes.ObjectId,
       required: true,
     },
-    foreignWord: String,
+    foreignWord: {
+      type: String,
+      required: true,
+    },
     tasks: {
       type: [taskSchema],
       required: true,
