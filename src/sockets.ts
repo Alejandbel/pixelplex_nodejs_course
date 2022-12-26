@@ -1,10 +1,10 @@
+import { Server as HTTPServer } from 'http';
+
 import * as jwt from 'jsonwebtoken';
 import { Server, Socket } from 'socket.io';
 
 import { JWT_SECRET } from '@config';
 import { applyLanguageEvent, EVENT_ROOMS } from '@events';
-
-import { server } from './server';
 
 const addToAuthRoomIfAuthorized = (socket: Socket): void => {
   socket.on('auth', (data) => {
@@ -25,7 +25,7 @@ const addToAuthRoomIfAuthorized = (socket: Socket): void => {
   });
 };
 
-export const applySocketConnections = (): void => {
+export const applySocketConnections = (server: HTTPServer): void => {
   const io = new Server(server, { cors: { origin: '*' } });
 
   io.on('connection', (socket) => {

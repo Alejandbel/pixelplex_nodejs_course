@@ -6,10 +6,10 @@ import { app } from './app';
 import { AppDataSource } from './data-source';
 import { applySocketConnections } from './sockets';
 
-export const server = http.createServer(app);
-
 async function init(): Promise<void> {
   try {
+    const server = http.createServer(app);
+
     await AppDataSource.initialize()
       .then(() => {
         console.log('Data Source has been initialized!');
@@ -17,7 +17,9 @@ async function init(): Promise<void> {
       .catch((err) => {
         console.error('Error during Data Source initialization', err);
       });
-    applySocketConnections();
+
+    applySocketConnections(server);
+
     server.listen(APPLICATION_CONFIG.PORT, () => console.log(`Listening on ${APPLICATION_CONFIG.PORT}`));
   } catch (error) {
     console.log(error);
