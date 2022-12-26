@@ -9,7 +9,7 @@ export interface ICard {
   foreignWord: string;
   nativeLanguage: Types.ObjectId;
   nativeWord: string;
-  tasks: ITask[];
+  tasks: Types.DocumentArray<ITask>;
   createdAt?: Date;
   updatedAt?: Date;
 }
