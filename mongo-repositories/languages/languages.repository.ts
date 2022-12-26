@@ -1,8 +1,9 @@
 import { Types } from 'mongoose';
 
+import { SORT_TYPES } from '../common.constants';
 import { Language } from '../models/language.model';
 
-import { LANGUAGES_ORDER_BY, SORT_TYPES } from './languages.constants';
+import { LANGUAGES_ORDER_BY } from './languages.constants';
 import { ILanguage } from './languages.interface';
 
 export class LanguagesRepository {
