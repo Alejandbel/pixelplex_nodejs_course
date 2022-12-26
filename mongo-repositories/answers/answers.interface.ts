@@ -4,6 +4,7 @@ import { TARGET_CONSTANTS } from '../tasks/tasks.constants';
 
 export interface IAnswer {
   user: Types.ObjectId;
+  task: Types.ObjectId;
   target: TARGET_CONSTANTS;
   foreignLanguage: Types.ObjectId;
   foreignWord: string;

@@ -10,6 +10,11 @@ const answerSchema = new mongoose.Schema<IAnswer>(
       type: mongoose.SchemaTypes.ObjectId,
       required: true,
     },
+    task: {
+      ref: 'task',
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+    },
     target: {
       type: String,
       enum: TARGET_CONSTANTS,
@@ -20,15 +25,27 @@ const answerSchema = new mongoose.Schema<IAnswer>(
       type: mongoose.SchemaTypes.ObjectId,
       required: true,
     },
-    foreignWord: String,
+    foreignWord: {
+      type: String,
+      required: true,
+    },
     nativeLanguage: {
       ref: 'language',
       type: mongoose.SchemaTypes.ObjectId,
       required: true,
     },
-    nativeWord: String,
-    answerWord: String,
-    isSuccess: Boolean,
+    nativeWord: {
+      type: String,
+      required: true,
+    },
+    answerWord: {
+      type: String,
+      required: true,
+    },
+    isSuccess: {
+      type: Boolean,
+      required: true,
+    },
   },
   { timestamps: true }
 );
